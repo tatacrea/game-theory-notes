@@ -1,0 +1,277 @@
+---
+title: "Game Theory notes"
+author: "kayla"
+format:
+  pdf:
+    include-in-header:  
+        - text: |
+            \usepackage{amstext}
+            \usepackage{amsthm}
+            \usepackage{tcolorbox}
+            \usepackage{amssymb, amsmath}
+            \usepackage{graphicx}
+            \usepackage{paralist}
+            \usepackage{multirow}
+            \usepackage{multicol}
+            \usepackage{xgames}
+            \usepackage[utf8]{inputenc}
+            \usepackage[framemethod=TikZ]{mdframed}
+---
+# Lecture 1
+
+## Rationality
+
+In lay terms, rationality inheres an actor's ability to possess *preferences*. Formally, this entails *transitivity* and *completeness*.
+
+- \textbf{Transitivity}: Preference relations form some order of elements, whether it be weak or strong.
+$\forall m, n, p \in R, mRnRp \Longrightarrow mRp$
+- \textbf{Completeness}: Each element is a member of a preference relation with all the other elements.
+$\forall m, n \in R, mRn \wedge nRm$
+
+## Normal-form games
+
+Normal-form games are one-shot (static) games with complete and perfect information.
+
+$$\Gamma = (N, S, u)$$
+
+Normal-form game notation encodes the following:
+
+- A set of players/actors, $N = \{1, 2, ..., n\}$
+
+  - We call any given actor of interest $i$
+  - We refer to the rest of the actors, $N \backslash \{i\}$, as $-i$
+
+- A set of strategy profiles, $S = S_1 \times S_2 \times ... \times S_n = S_i \times S_{-i}$
+
+  - Let $m$ be the number of strategies available to each player; the building blocks of $S$ are the respective sets of the individual players' strategies, $S_i = \{s_{i1}, s_{i2}, ..., s_{im}\}$
+  - $S_i$, in turn, are made up of individual strategies $\{s_{i1}, s_{i2}, ..., s_{im}\}$
+  - $S$ is thus the cross-product of the set of strategies for each player
+  - $S_{-i} = S_1 \times S_2 \times ... \times S_{i-1} \times S_{i+1} \times ... \times S_n$ is itself a set of strategy *profiles*, being the cross product of all the non-$i$ players' strategies
+
+- An ordered set of utility functions, $u_i \in u = \{u_1, u_2, ..., u_n\} : S \mapsto \Re$
+
+  - It takes in a given *strategy profile*, $s \in S$, as its input
+  - It outputs a certain payoff, some number $\in \Re$
+  
+A strategy profile is the *combination of multiple* players' strategies *in a given scenario*. Broadly speaking, we will usually interact with two types of strategy profiles: the entirety of a *particular* scenario (i.e., all the players' strategies), and 'all-except-$i$'s strategies'.
+
+**Note**: in the notation of individual strategies, the 1st subscript letter refers to the identity of the player, and the 2nd identifies a specific strategy within player $i$'s set of strategies. Additionally, we will make liberal use of dimensionality reduction using $-i$ to represent e.g., strategy profiles two-dimensionally (i.e., $s = (s_i, s_{-i})$, where $s_{-i} = (s_1, s_2, ..., s_{i - 1}, s_{i + 1}, ..., s_n)$).
+
+\textbf{Note}: To be normal-form, a game does _not_ require a dominant strategy.
+
+### Example: prisoner's dilemma
+
+To illustrate the above components in a bite-sized setting, take a game with two actors and two strategies each, like the prisoners' dilemma:
+
+- $N = \{1, 2\}$
+- $S = S_1 \times S_2 = \{s_{11}, s_{12}\} \times \{s_{21}, s_{22}\} = \{(s_{11},s_{21}), (s_{11}, s_{22}), (s_{12}, s_{21}),(s_{12}, s_{22})\}$
+  - $s_{11} = s_{21} = \text{'confess'}$ (represented in different cases, $C$ and $c$, to aid in differentiation)
+  - $s_{12} = s_{22} = \text{'defect'}$ ($D$ and $d$ respectively)
+- $u_1(s_{11}, s_{21}) = -1, u_2(s_{11}, s_{21}) = -1, ...$
+  - $u_1 = \begin{cases}(s_{11}, s_{21}) = -1 \\ (s_{11}, s_{22}) = 0 \\ (s_{12}, s_{21}) = -10 \\ (s_{12}, s_{22}) = -5 \end{cases}$
+  - $u_2 = \begin{cases}(s_{11}, s_{21}) = -1 \\ (s_{11}, s_{22}) = 0 \\ (s_{12}, s_{21}) = -10 \\ (s_{12}, s_{22}) = -5 \end{cases}$
+
+The utility payoffs can be represented more compactly in matrix format:
+
+\begin{center}
+ \begin{matrixgame}[force math, top={c,d}, left={C,D}, player names={Player 1, Player 2}, br]
+  \payoffmatrix[w=1.3, h=0.75]{-5, -5 & 0, -10\\ -10, 0 & -1, -1}
+ \end{matrixgame}
+\end{center}
+
+## Solutions and strategies
+
+### What is a solution?
+
+A solution is a prediction of which choices rational actors in a game would make, usually culminating in some strategy profile. Such a strategy profile is called an *equilibrium*.
+
+The most 'blunt' way to achieve equilibria in normal-form games is to pursue, whenever available, a *dominant strategy*.
+
+### Dominant strategies
+
+A strategy is a dominant strategy if, given you're acting *unilaterally*, you improve your own condition in every possible *scenario* by picking one particular strategy. In other words, said strategy delivers *you* a higher utility regardless of which strategy the other players pick.
+
+Let 
+
+- $N = \{1, 2, ..., n\}$ 
+- $m$ be the number of strategies $i$ can avail of $\therefore S_i = \{s_{i1}, s_{i2}, ... s_{im}\} \forall i \in N$
+
+A strategy is
+
+- *Strictly dominant* when $\forall s_{i} \in S_{i}, s_i \neq s'_i : u_i(s'_i, s_{-i}) > u_i(s_i, s_{-i}) \forall s_{-i} \in S_{-i}$ 
+- *Weakly dominant* when **both** $\forall s_{i} \in S_{i}, s_i \neq s'_i : u_i(s'_i, s_{-i}) ≥ u_i(s_i, s_{-i})$ $\forall$ $s_{-i} \in S_{-i}$ **and** $\exists s'_i, s_{-i} : u_i(s'_i, s_{-i}) > u_i(s_i, s_{-i})$
+
+### How to solve for dominant strategies
+
+(1) Look at the payoffs for some player given some strategy of the opponent
+
+\begin{center}
+\begin{tabular}{c c c c c} 
+					          &		    & \multicolumn{2}{c}{Player 2} \\
+					          &	    	& c 					              & d					                \\  \cline{3-4}
+\multirow{2}{*}{Player 1}		& C 		& \multicolumn{1}{|c|}{\textbf{-8}, -8}	& \multicolumn{1}{|c|}{\textbf{-1},-25}	\\  \cline{3-4}
+					                  & D 		& \multicolumn{1}{|c|}{\textbf{-25},-1}	& \multicolumn{1}{|c|}{\textbf{-4}, -4}	\\  \cline{3-4}
+\end{tabular}	
+\end{center}
+
+(2) Mark the strategy that yields the higher payoff
+
+\begin{center}
+\begin{tabular}{c c c c c} 
+					          &		    & \multicolumn{2}{c}{Player 2} \\
+					          &	    	& c 					              & d					                \\  \cline{3-4}
+\multirow{2}{*}{Player 1}		& C 		& \multicolumn{1}{|c|}{\textbf{-8}, -8}	& \multicolumn{1}{|c|}{\textbf{-1},-25}	\\  \cline{3-4}
+					                  & D 		& \multicolumn{1}{|c|}{-25,-1}	& \multicolumn{1}{|c|}{-4, -4}	\\  \cline{3-4}
+\end{tabular}	
+\end{center}
+
+(3) A strategy that always yields the higher payoff is strictly dominant
+
+\begin{center}
+\begin{tabular}{c c c c c} 
+					          &		    & \multicolumn{2}{c}{Player 2} \\
+					          &	    	& c 					              & d					                \\  \cline{3-4}
+\multirow{2}{*}{Player 1}		& \textbf{C} 		& \multicolumn{1}{|c|}{\textbf{-8}, -8}	& \multicolumn{1}{|c|}{\textbf{-1},-25}	\\  \cline{3-4}
+					                  & D 		& \multicolumn{1}{|c|}{-25,-1}	& \multicolumn{1}{|c|}{-4, -4}	\\  \cline{3-4}
+\end{tabular}	
+\end{center}
+
+$$u_1(s_{11}, \{s_{21}, s_{22}\}) > u_1(s_{12}, \{s_{21}, s_{22}\})$$
+
+Since this is a symmetric game, player 2 will also choose c.
+
+- The strategy profile $s_{\text{strict}} = (s_{11}, s_{21})$
+- Therefore, the equilibrium is $u = (-8,-8)$.
+
+\begin{center}
+ \begin{matrixgame}[force math, top={c,d}, left={C,D}, player names={Player 1, Player 2}, br]
+  \payoffmatrix[w=1.5, h=0.75]{-8, -8 & -1, -25\\ -25, -1 & -4, -4}
+ \end{matrixgame}
+\end{center}
+
+### Iterated elimination of strictly dominated strategies (IESDS)
+
+Games to be solved by *iterated elimination* necessarily have *no* (single) dominant strategy, strict or weak. This solving technique is therefore predicated on the rational expectation that someone can be expected to 'eliminate' strictly domina*ted* choices and that the other player(s) will be able to anticipate that. To use a card game metaphor, we can anticipate a given player to rule out their worst 'hand'. A strictly dominated 'hand' does not necessarily need to be worse than both other hands.
+
+**Note**: Iterated elimination of weakly dominated strategies may yield different results depending on the order of elimination and is thus to be avoided. Conversely, IESDS resolves to the same equilibrium regardless of order.
+
+### How to solve by iterated elimination
+
+(0) Choose a player to start with, e.g., the column player.
+
+(1) Identify the highest-payoff strategy for said player given each specific strategy which may be employed by the other player.
+
+\begin{center}
+ \begin{matrixgame}[force math, top={l,m,r}, left={U,M,D}, player names={Row, Column}, br]
+  \payoffmatrix[w=1.5, h=0.75]{2,0 & 1,8 & 4,7\\ 5,2 & 2,6 & 4,3\\ 4,2 & 6,3 & 5,6}
+ \end{matrixgame}
+\end{center}
+
+(2) Identify any of said (column) player's strategies with no highest-payoff response and eliminate it.
+
+\begin{center}
+ \begin{matrixgame}[force math, top={l,m,r}, left={U,M,D}, player names={Row, Column}, strike width=1.5pt, br]
+  \payoffmatrix[w=1.5, h=0.75]{2,0 & 1,8 & 4,7\\ 5,2 & 2,6 & 4,3\\ 4,2 & 6,3 & 5,6}
+  \strike<3->[1]{v}{1}
+ \end{matrixgame}
+\end{center}
+
+(3) Now that we have anticipated any strategy the column player will dispose of, do the same with the row player.
+
+\begin{center}
+ \begin{matrixgame}[force math, top={m,r}, left={U,M,D}, player names={Row, Column}, strike width=1.5pt, br]
+  \payoffmatrix[w=1.5, h=0.75]{1,8 & 4,7\\ 2,6 & 4,3\\ 6,3 & 5,6}
+  \strike<2->[1]{h}{1}
+  \strike<2->[1]{h}{2}
+ \end{matrixgame}
+\end{center}
+
+(4) Keep rotating between players until you reach an equilibrium or you cannot eliminate anymore
+
+\begin{center}
+ \begin{matrixgame}[force math, top={m,r}, left={D}, player names={Row, Column}, strike width=1.5pt, br]
+  \payoffmatrix[w=1.5, h=0.75]{6,3 & 5,6}
+  \strike<1->[1]{v}{1}
+ \end{matrixgame}
+ 
+ \begin{matrixgame}[force math, top={r}, left={D}, player names={Row, Column}, strike width=1.5pt, br]
+  \payoffmatrix[w=1.5, h=0.75]{5,6}
+ \end{matrixgame}
+\end{center}
+
+Your *equilibrium* $E(\Gamma) = \{(s_i, s_{-i})\}$, **not** $\{u_i, u_{-i}\}$. In this case, $E(\Gamma) = \{(D, r)\}$, **not** $\{(5, 6)\}$. The latter is instead the *set of payoffs* in that equilibrium.
+
+# Lecture 2
+
+\begin{center}
+ \begin{matrixgame}[force math, top={l,p}, left={L,P}, player names={Player 1, Player 2}, br]
+  \payoffmatrix[w=1.5, h=0.75]{2, 2 & 0, 0\\ 0, 0 & 1, 1}
+ \end{matrixgame}
+\end{center}
+a = 2, b = 1, c = 0
+
+
+\begin{center}
+ \begin{matrixgame}[force math, top={l,m,r}, left={U,M,D}, player names={Player 1, Player 2}, br]
+  \payoffmatrix[w=1.3, h=0.75]{2, 0 & 1, 8 & 4, 7\\ -5, 2 & 2, 6 & 4, 3\\ 4,2 & 6, 3 & 5, 6}
+ \end{matrixgame}
+\end{center}
+
+Find a strategy with zero underlines, e.g., $l$.
+
+\begin{center}
+ \begin{matrixgame}[force math, top={m,r}, left={U,M,D}, player names={Player 1, Player 2}, br]
+  \payoffmatrix[w=1.3, h=0.75]{1, 8 & 4, 7\\ 2, 6 & 4, 3\\ 6, 3 & 5, 6}
+ \end{matrixgame}
+\end{center}
+
+You can eliminate multiple 'dominated strategies' at each turn. The point is to anticipate which strategy/ies a given player will eliminate at every turn. By definition that entails every dominated strategy that exists for them at that given point of time. This necessarily enables the elimination of multiple strategies where needed.
+
+\begin{center}
+ \begin{matrixgame}[force math, top={m,r}, left={D}, player names={Player 1, Player 2}, br]
+  \payoffmatrix[w=1.3, h=0.75]{6, 3 & 5, 6}
+ \end{matrixgame}
+\end{center}
+
+Here, they have already decided to use a specific strategy. Now is necessarily the other player's turn to choose.
+
+Equilibria are always referred to in terms of strategies (i.e., ${(D, r)}$), not payoffs (${(5, 6)}$).
+
+Suppose the column player plays a given strategy. Which of the row player's strategies delivers the highest payoff? Then look at a different column player strategy. Which one delivers the highest? Iterate until you find a column where ...
+
+When you have the opportunity to remove multiple columns before switching to the other person's perspective, you can (and will/should) do so.
+
+## Best response strategies
+
+A strategy $s′_i$ is a best response strategy of player $i$ to a strategy profile $s_{−i}$ if
+$u_i(s′_i, s_{−i}) ≥ u_i(s_i, s_{−i})$ for all $s_i ∈ S_i$.
+
+The best response function is the set-valued function $b_i : S_{−i} → S_i$ with $b_i(s_{−i}) = \arg\max\limits_{s_i ∈ S_i} u_i(s_i, s_{−i})$.
+
+The function $b_i$ maps the members of the domain $S_{-i}$ to the co-domain $S_i$. That is, it maps the strategies of other players to those of our player of interest.
+
+$b_i(s_{-i})$ is the function $b_i$ given the input of $s_{-i} \in S_{-i}$. In other words, the best-response function $b_i(s_{-i})$ 'takes in' a specific strategy within the set of 'other players' strategies' and outputs our player of interest's best response.
+
+Put simply, it's just a way for us to describe a player's best strategy *given some strategy employed by all the other players*.
+
+NOTE: formal definition of a function $f : x \mapsto y$
+$$\forall x \in X, \exists y \in Y : x \mapsto y$$
+Importantly, it limits the scope of 'for all $x$' to members of the set $X$, meaning that if you limit the set of domain members, there doesn't have to be a mapping 'connection' to the complete (i.e., universe) set; only the subset of the universe circumscribed by $X$ (e.g., $\sqrt{x}$ is a function $\Longleftrightarrow X = \{0, \Re^+\}$).
+
+Injective: $\forall x_1, x_2 \in X, f(x_1) = f(x_2) \Longrightarrow x_1 = x_2$ (if the function outputs of two domain members are the same, then the two domain members are equal to each other)
+
+Surjective: $\forall y \in Y, \exists x \in X : f(x) = y$ (every member of the co-domain is paired with at least one member of the domain)
+
+## Nash equilibrium ($E(\Gamma)$)
+
+Formally, $E(\Gamma) = s : s_i \in b_i(s_{-i}) \forall i \in N$.
+
+$E(\Gamma) = \{s_i \in b_i\} \cap \{s_{-i} \in b_{-i}\}$
+
+$b_1(s_2) = \begin{cases}s_{11} \Longrightarrow s_2 = s_{21} \\ s_{12} \Longrightarrow s_2 = s_{22} \end{cases}$
+
+$b_2(s_1) = \begin{cases}s_{21} \Longrightarrow s_2 = s_{11} \\ s_{22} \Longrightarrow s_2 = s_{12} \end{cases}$
+
+$S = S_{1} \times S_{2} = {(s_{11}, s_{21}), (s_{11}, s_{22}), (s_{12}, s_{21}), (s_{12}, s_{22})}$
+
+$NE = {(s_{11}, s_{21}), (s_{12}, s_{22})}$
