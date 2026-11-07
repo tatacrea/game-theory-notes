@@ -13,20 +13,25 @@ format:
             \usepackage{paralist}
             \usepackage{multirow}
             \usepackage{multicol}
+            \usepackage{tikz}
             \usepackage{xgames}
             \usepackage[utf8]{inputenc}
             \usepackage[framemethod=TikZ]{mdframed}
 ---
+
+```{r}
+#| include: false
+library(ggplot2)
+```
+
 # Lecture 1
 
 ## Rationality
 
 In lay terms, rationality inheres an actor's ability to possess *preferences*. Formally, this entails *transitivity* and *completeness*.
 
-- \textbf{Transitivity}: Preference relations form some order of elements, whether it be weak or strong.
-$\forall m, n, p \in R, mRnRp \Longrightarrow mRp$
-- \textbf{Completeness}: Each element is a member of a preference relation with all the other elements.
-$\forall m, n \in R, mRn \wedge nRm$
+- \textbf{Transitivity}: Preference relations form some order of elements, whether it be weak or strong. $\forall m, n, p \in R, mRnRp \Longrightarrow mRp$
+- \textbf{Completeness}: Each element is a member of a preference relation with all the other elements. $\forall m, n \in R, mRn \wedge nRm$
 
 ## Normal-form games
 
@@ -52,12 +57,12 @@ Normal-form game notation encodes the following:
 
   - It takes in a given *strategy profile*, $s \in S$, as its input
   - It outputs a certain payoff, some number $\in \Re$
-  
+
 A strategy profile is the *combination of multiple* players' strategies *in a given scenario*. Broadly speaking, we will usually interact with two types of strategy profiles: the entirety of a *particular* scenario (i.e., all the players' strategies), and 'all-except-$i$'s strategies'.
 
 **Note**: in the notation of individual strategies, the 1st subscript letter refers to the identity of the player, and the 2nd identifies a specific strategy within player $i$'s set of strategies. Additionally, we will make liberal use of dimensionality reduction using $-i$ to represent e.g., strategy profiles two-dimensionally (i.e., $s = (s_i, s_{-i})$, where $s_{-i} = (s_1, s_2, ..., s_{i - 1}, s_{i + 1}, ..., s_n)$).
 
-\textbf{Note}: To be normal-form, a game does _not_ require a dominant strategy.
+\textbf{Note}: To be normal-form, a game does *not* require a dominant strategy.
 
 ### Example: prisoner's dilemma
 
@@ -91,14 +96,14 @@ The most 'blunt' way to achieve equilibria in normal-form games is to pursue, wh
 
 A strategy is a dominant strategy if, given you're acting *unilaterally*, you improve your own condition in every possible *scenario* by picking one particular strategy. In other words, said strategy delivers *you* a higher utility regardless of which strategy the other players pick.
 
-Let 
+Let
 
-- $N = \{1, 2, ..., n\}$ 
+- $N = \{1, 2, ..., n\}$
 - $m$ be the number of strategies $i$ can avail of $\therefore S_i = \{s_{i1}, s_{i2}, ... s_{im}\} \forall i \in N$
 
 A strategy is
 
-- *Strictly dominant* when $\forall s_{i} \in S_{i}, s_i \neq s'_i : u_i(s'_i, s_{-i}) > u_i(s_i, s_{-i}) \forall s_{-i} \in S_{-i}$ 
+- *Strictly dominant* when $\forall s_{i} \in S_{i}, s_i \neq s'_i : u_i(s'_i, s_{-i}) > u_i(s_i, s_{-i}) \forall s_{-i} \in S_{-i}$
 - *Weakly dominant* when **both** $\forall s_{i} \in S_{i}, s_i \neq s'_i : u_i(s'_i, s_{-i}) ≥ u_i(s_i, s_{-i})$ $\forall$ $s_{-i} \in S_{-i}$ **and** $\exists s'_i, s_{-i} : u_i(s'_i, s_{-i}) > u_i(s_i, s_{-i})$
 
 ### How to solve for dominant strategies
@@ -107,33 +112,33 @@ A strategy is
 
 \begin{center}
 \begin{tabular}{c c c c c} 
-					          &		    & \multicolumn{2}{c}{Player 2} \\
-					          &	    	& c 					              & d					                \\  \cline{3-4}
-\multirow{2}{*}{Player 1}		& C 		& \multicolumn{1}{|c|}{\textbf{-8}, -8}	& \multicolumn{1}{|c|}{\textbf{-1},-25}	\\  \cline{3-4}
-					                  & D 		& \multicolumn{1}{|c|}{\textbf{-25},-1}	& \multicolumn{1}{|c|}{\textbf{-4}, -4}	\\  \cline{3-4}
-\end{tabular}	
+                              &         & \multicolumn{2}{c}{Player 2} \\
+                              &         & c                                   & d                                   \\  \cline{3-4}
+\multirow{2}{*}{Player 1}       & C         & \multicolumn{1}{|c|}{\textbf{-8}, -8} & \multicolumn{1}{|c|}{\textbf{-1},-25} \\  \cline{3-4}
+                                      & D       & \multicolumn{1}{|c|}{\textbf{-25},-1} & \multicolumn{1}{|c|}{\textbf{-4}, -4} \\  \cline{3-4}
+\end{tabular}   
 \end{center}
 
 (2) Mark the strategy that yields the higher payoff
 
 \begin{center}
 \begin{tabular}{c c c c c} 
-					          &		    & \multicolumn{2}{c}{Player 2} \\
-					          &	    	& c 					              & d					                \\  \cline{3-4}
-\multirow{2}{*}{Player 1}		& C 		& \multicolumn{1}{|c|}{\textbf{-8}, -8}	& \multicolumn{1}{|c|}{\textbf{-1},-25}	\\  \cline{3-4}
-					                  & D 		& \multicolumn{1}{|c|}{-25,-1}	& \multicolumn{1}{|c|}{-4, -4}	\\  \cline{3-4}
-\end{tabular}	
+                              &         & \multicolumn{2}{c}{Player 2} \\
+                              &         & c                                   & d                                   \\  \cline{3-4}
+\multirow{2}{*}{Player 1}       & C         & \multicolumn{1}{|c|}{\textbf{-8}, -8} & \multicolumn{1}{|c|}{\textbf{-1},-25} \\  \cline{3-4}
+                                      & D       & \multicolumn{1}{|c|}{-25,-1}  & \multicolumn{1}{|c|}{-4, -4}  \\  \cline{3-4}
+\end{tabular}   
 \end{center}
 
 (3) A strategy that always yields the higher payoff is strictly dominant
 
 \begin{center}
 \begin{tabular}{c c c c c} 
-					          &		    & \multicolumn{2}{c}{Player 2} \\
-					          &	    	& c 					              & d					                \\  \cline{3-4}
-\multirow{2}{*}{Player 1}		& \textbf{C} 		& \multicolumn{1}{|c|}{\textbf{-8}, -8}	& \multicolumn{1}{|c|}{\textbf{-1},-25}	\\  \cline{3-4}
-					                  & D 		& \multicolumn{1}{|c|}{-25,-1}	& \multicolumn{1}{|c|}{-4, -4}	\\  \cline{3-4}
-\end{tabular}	
+                              &         & \multicolumn{2}{c}{Player 2} \\
+                              &         & c                                   & d                                   \\  \cline{3-4}
+\multirow{2}{*}{Player 1}       & \textbf{C}        & \multicolumn{1}{|c|}{\textbf{-8}, -8} & \multicolumn{1}{|c|}{\textbf{-1},-25} \\  \cline{3-4}
+                                      & D       & \multicolumn{1}{|c|}{-25,-1}  & \multicolumn{1}{|c|}{-4, -4}  \\  \cline{3-4}
+\end{tabular}   
 \end{center}
 
 $$u_1(s_{11}, \{s_{21}, s_{22}\}) > u_1(s_{12}, \{s_{21}, s_{22}\})$$
@@ -159,7 +164,7 @@ Games to be solved by *iterated elimination* necessarily have *no* (single) domi
 
 (0) Choose a player to start with, e.g., the column player.
 
-(1) Identify the highest-payoff strategy for said player given each specific strategy which may be employed by the other player.
+(1) Identify the highest-payoff strategy for said player given each specific strategy which may be employed by the other player (i.e., best-response strategy, see Lecture 2).
 
 \begin{center}
  \begin{matrixgame}[force math, top={l,m,r}, left={U,M,D}, player names={Row, Column}, br]
@@ -167,7 +172,7 @@ Games to be solved by *iterated elimination* necessarily have *no* (single) domi
  \end{matrixgame}
 \end{center}
 
-(2) Identify any of said (column) player's strategies with no highest-payoff response and eliminate it.
+(2) Identify any of said (column) player's strategies with *no highest-payoff/best response* (in this instance, zero underlines) and eliminate it.
 
 \begin{center}
  \begin{matrixgame}[force math, top={l,m,r}, left={U,M,D}, player names={Row, Column}, strike width=1.5pt, br]
@@ -186,6 +191,8 @@ Games to be solved by *iterated elimination* necessarily have *no* (single) domi
  \end{matrixgame}
 \end{center}
 
+**Note**: You can eliminate multiple 'dominated strategies' at each turn, e.g., when there is a single dominant strategy among 3+ strategies. The point is to anticipate which strategy/ies a given player will eliminate at every turn. By definition that entails *every dominated strategy* that exists for them at that given point of time.
+
 (4) Keep rotating between players until you reach an equilibrium or you cannot eliminate anymore
 
 \begin{center}
@@ -202,76 +209,339 @@ Games to be solved by *iterated elimination* necessarily have *no* (single) domi
 Your *equilibrium* $E(\Gamma) = \{(s_i, s_{-i})\}$, **not** $\{u_i, u_{-i}\}$. In this case, $E(\Gamma) = \{(D, r)\}$, **not** $\{(5, 6)\}$. The latter is instead the *set of payoffs* in that equilibrium.
 
 # Lecture 2
-
-\begin{center}
- \begin{matrixgame}[force math, top={l,p}, left={L,P}, player names={Player 1, Player 2}, br]
-  \payoffmatrix[w=1.5, h=0.75]{2, 2 & 0, 0\\ 0, 0 & 1, 1}
- \end{matrixgame}
-\end{center}
-a = 2, b = 1, c = 0
-
-
-\begin{center}
- \begin{matrixgame}[force math, top={l,m,r}, left={U,M,D}, player names={Player 1, Player 2}, br]
-  \payoffmatrix[w=1.3, h=0.75]{2, 0 & 1, 8 & 4, 7\\ -5, 2 & 2, 6 & 4, 3\\ 4,2 & 6, 3 & 5, 6}
- \end{matrixgame}
-\end{center}
-
-Find a strategy with zero underlines, e.g., $l$.
-
-\begin{center}
- \begin{matrixgame}[force math, top={m,r}, left={U,M,D}, player names={Player 1, Player 2}, br]
-  \payoffmatrix[w=1.3, h=0.75]{1, 8 & 4, 7\\ 2, 6 & 4, 3\\ 6, 3 & 5, 6}
- \end{matrixgame}
-\end{center}
-
-You can eliminate multiple 'dominated strategies' at each turn. The point is to anticipate which strategy/ies a given player will eliminate at every turn. By definition that entails every dominated strategy that exists for them at that given point of time. This necessarily enables the elimination of multiple strategies where needed.
-
-\begin{center}
- \begin{matrixgame}[force math, top={m,r}, left={D}, player names={Player 1, Player 2}, br]
-  \payoffmatrix[w=1.3, h=0.75]{6, 3 & 5, 6}
- \end{matrixgame}
-\end{center}
-
-Here, they have already decided to use a specific strategy. Now is necessarily the other player's turn to choose.
-
-Equilibria are always referred to in terms of strategies (i.e., ${(D, r)}$), not payoffs (${(5, 6)}$).
-
-Suppose the column player plays a given strategy. Which of the row player's strategies delivers the highest payoff? Then look at a different column player strategy. Which one delivers the highest? Iterate until you find a column where ...
-
-When you have the opportunity to remove multiple columns before switching to the other person's perspective, you can (and will/should) do so.
-
 ## Best response strategies
+### A primer on functions
 
-A strategy $s′_i$ is a best response strategy of player $i$ to a strategy profile $s_{−i}$ if
-$u_i(s′_i, s_{−i}) ≥ u_i(s_i, s_{−i})$ for all $s_i ∈ S_i$.
-
-The best response function is the set-valued function $b_i : S_{−i} → S_i$ with $b_i(s_{−i}) = \arg\max\limits_{s_i ∈ S_i} u_i(s_i, s_{−i})$.
-
-The function $b_i$ maps the members of the domain $S_{-i}$ to the co-domain $S_i$. That is, it maps the strategies of other players to those of our player of interest.
-
-$b_i(s_{-i})$ is the function $b_i$ given the input of $s_{-i} \in S_{-i}$. In other words, the best-response function $b_i(s_{-i})$ 'takes in' a specific strategy within the set of 'other players' strategies' and outputs our player of interest's best response.
-
-Put simply, it's just a way for us to describe a player's best strategy *given some strategy employed by all the other players*.
-
-NOTE: formal definition of a function $f : x \mapsto y$
-$$\forall x \in X, \exists y \in Y : x \mapsto y$$
+The formal definition of a function $f : x \mapsto y$ is $$\forall x \in X, \exists ! y \in Y : x \mapsto y$$
 Importantly, it limits the scope of 'for all $x$' to members of the set $X$, meaning that if you limit the set of domain members, there doesn't have to be a mapping 'connection' to the complete (i.e., universe) set; only the subset of the universe circumscribed by $X$ (e.g., $\sqrt{x}$ is a function $\Longleftrightarrow X = \{0, \Re^+\}$).
 
 Injective: $\forall x_1, x_2 \in X, f(x_1) = f(x_2) \Longrightarrow x_1 = x_2$ (if the function outputs of two domain members are the same, then the two domain members are equal to each other)
 
 Surjective: $\forall y \in Y, \exists x \in X : f(x) = y$ (every member of the co-domain is paired with at least one member of the domain)
 
+### From best response strategy to best response function
+
+A strategy $s′_i$ is a best response strategy of player $i$ to a strategy profile $s_{−i}$ if $u_i(s′_i, s_{−i}) ≥ u_i(s_i, s_{−i})$ for all $s_i ∈ S_i$. Put simply, it's just a way for us to describe a player's best strategy given *some strategy profile* employed by all the other players. When a best-response strategy applies $\forall s_{-i} \in S_{-i}$ (i.e., unconditional), it is a dominant strategy.
+
+The best response function is the set-valued function $b_i : S_{−i} \mapsto S_i$ with $$b_i(s_{−i}) = \arg\max\limits_{s_i ∈ S_i} u_i(s_i, s_{−i})$$
+The function $b_i$ maps the members of the domain $S_{-i}$ to the co-domain $S_i$. That is, it maps the strategies of other players to those of our player of interest. $b_i(s_{-i})$ is the function $b_i$ given the input of $s_{-i} \in S_{-i}$. In other words, the best-response function $b_i(s_{-i})$ 'takes in' a specific strategy within the set of 'other players' strategies' and outputs our player of interest's best response.
+
 ## Nash equilibrium ($E(\Gamma)$)
 
-Formally, $E(\Gamma) = s : s_i \in b_i(s_{-i}) \forall i \in N$.
+Formally, $$E(\Gamma) = s : s_i \in b_i(s_{-i}) \forall i \in N$$
+As the Nash equilibrium is also the intersection between all players' best responses, $$E(\Gamma) = \{s_i \in b_i(s_{-i})\} \cap \{s_{-i} \in b_{-i}(s_{-i})\}$$ In other words, a Nash equilibrium occurs when $$\exists s'_i \in S_i : u_i(s'_i, s_{-i}) ≥ u_i(s_i, s_{-i}) \forall s_i \in S_i \forall i \in N$$
 
-$E(\Gamma) = \{s_i \in b_i\} \cap \{s_{-i} \in b_{-i}\}$
+When $\exists ! s \in E(\Gamma)$ in IESDS, that strategy is the game's singular Nash equilibrium.
 
-$b_1(s_2) = \begin{cases}s_{11} \Longrightarrow s_2 = s_{21} \\ s_{12} \Longrightarrow s_2 = s_{22} \end{cases}$
+### When does a Nash equilibrium exist?
+A normal form game has a pure strategy Nash equilibrium if $\forall i ∈ N$
 
-$b_2(s_1) = \begin{cases}s_{21} \Longrightarrow s_2 = s_{11} \\ s_{22} \Longrightarrow s_2 = s_{12} \end{cases}$
+- $S_i$ is a non-empty, convex and compact subset of $\mathbb{R}^{m_i}$
+- $u_i(s_i, s_{−i})$ is continuous in $s_{−i}$
+- $u_i(s_i, s_{−i})$ is continuous and concave in $s_i$ (technically, quasi-concavity suffices)
 
-$S = S_{1} \times S_{2} = {(s_{11}, s_{21}), (s_{11}, s_{22}), (s_{12}, s_{21}), (s_{12}, s_{22})}$
+Given we are mostly going to deal with one-dimensional strategy spaces $S_i$, an uninterrupted range along the number line (~ continuous, i.e., no gaps in the range) meets the criteria for convexity.
 
-$NE = {(s_{11}, s_{21}), (s_{12}, s_{22})}$
+A utility function $u : S_i \mapsto \mathbb{R}$ is concave if $$f(\lambda x + (1 - \lambda)y) > \lambda f(x) + (1- \lambda) f(y)$$ $\forall x, y \in S_i, x \neq y, \lambda \in [0, 1]$.
+
+### Application: Downs' model
+
+Downs' model of two-party competition is a theory exploring how party campaigning dynamics converge upon the pursuit of the median voter within a two-party system.
+
+# Lecture 3
+## Indifference in mixed strategies
+A way to conceptualise indifference between strategies is to think of situations where you would want to be unpredictable and 'randomise' your moves, lest the other players be able to counter them.
+
+## Drawing best response curves
+Step 0: (Re-)familiarise yourself with what the axes mean
+
+\begin{tikzpicture}
+    \draw [thin, gray, ->] (0,-0.5) -- (0,7.5)      % draw y-axis line
+        node [above, black] {$P_c$};              % add label for y-axis
+    
+    \draw [thin, gray, ->] (-0.5,0) -- (7.5,0)      % draw x-axis line
+        node [right, black] {$P_A$};              % add label for x-axis
+    
+    \draw [draw=blue] (5,0) -- (5,5);
+    \node [right, blue] at (5,2.5) {$\text{Row}$};
+    
+    \draw [draw=red] (0,5) -- (5,5);
+    \node [below, red] at (2.5,5) {$\text{Col}$};
+    
+    \draw [draw=-green!40!yellow,thick] (5, 5) circle (0.2cm);
+
+    \node [left] at (-0.5,5) {$c$};                % label y-intercept
+    \node [left] at (-0.5,0) {$d$};                % label y-intercept
+    \node [below] at (5,-0.5) {$A$};               % label x-intercept
+    \node [below] at (0,-0.5) {$B$};               % label x-intercept
+
+\end{tikzpicture}
+
+Step 1: Mark any existing Nash Equilibrium, if available.
+
+Step 2: Mark the probabilities of indifference (in our case, p and q), on their respective axes/number lines
+
+\begin{tikzpicture}
+    \draw [thin, gray, ->] (0,-0.5) -- (0,7.5)      % draw y-axis line
+        node [above, black] {$P_c$};              % add label for y-axis
+    
+    \draw [thin, gray, ->] (-0.5,0) -- (7.5,0)      % draw x-axis line
+        node [right, black] {$P_A$};              % add label for x-axis
+    
+    \draw [draw=blue] (5,0) -- (5,5);
+    \node [right, blue] at (5,2.5) {$\text{Row}$};
+    
+    \draw [draw=red] (0,5) -- (5,5);
+    \node [below, red] at (2.5,5) {$\text{Col}$};
+    
+    \draw [draw=-green!40!yellow,thick] (5, 5) circle (0.2cm);
+
+    \node [left] at (-0.5,5) {$c$};                % label y-intercept
+    \node [left] at (-0.5,0) {$d$};                % label y-intercept
+    \node [below] at (5,-0.5) {$A$};               % label x-intercept
+    \node [below] at (0,-0.5) {$B$};               % label x-intercept
+    
+    \node [left] at (0,2.5) {$q$};                % label y-intercept
+    \node [below] at (2.5,0) {$p$};                % label y-intercept
+
+\end{tikzpicture}
+
+Step 3: Draw
+
+- the row player's line of indifference as a vertical line on p, and
+- the column player's line of indifference as a horizontal line on q
+
+\begin{tikzpicture}
+    \draw [thin, gray, ->] (0,-0.5) -- (0,7.5)      % draw y-axis line
+        node [above, black] {$P_c$};              % add label for y-axis
+    
+    \draw [thin, gray, ->] (-0.5,0) -- (7.5,0)      % draw x-axis line
+        node [right, black] {$P_A$};              % add label for x-axis
+    
+    \draw [draw=blue] (2.5,0) -- (2.5,5);
+    \node [right, blue] at (2.5,3.75) {$\text{Row}$};
+    
+    \draw [draw=red] (0,2.5) -- (5,2.5);
+    \node [below, red] at (3.75,2.5) {$\text{Col}$};
+    
+    \draw [draw=-green!40!yellow,thick] (5, 5) circle (0.2cm);
+
+    \node [left] at (-0.5,5) {$c$};                % label y-intercept
+    \node [left] at (-0.5,0) {$d$};                % label y-intercept
+    \node [below] at (5,-0.5) {$A$};               % label x-intercept
+    \node [below] at (0,-0.5) {$B$};               % label x-intercept
+    
+    \node [left] at (0,2.5) {$q$};                % label y-intercept
+    \node [below] at (2.5,0) {$p$};                % label y-intercept
+
+\end{tikzpicture}
+
+Step 4: Extend each curve by marking the best response of each player given the other's strategy (e.g., the row player's best strategy is A given the column player plays D)
+
+\begin{tikzpicture}
+    \draw [thin, gray, ->] (0,-0.5) -- (0,7.5)      % draw y-axis line
+        node [above, black] {$P_c$};              % add label for y-axis
+    
+    \draw [thin, gray, ->] (-0.5,0) -- (7.5,0)      % draw x-axis line
+        node [right, black] {$P_A$};              % add label for x-axis
+    
+    \draw [draw=blue] (2.5,0) -- (2.5,5);
+    \node [right, blue] at (2.5,3.75) {$\text{Row}$};
+    
+    \draw [draw=red] (0,2.5) -- (5,2.5);
+    \node [below, red] at (3.75,2.5) {$\text{Col}$};
+    
+    \draw [draw=-green!40!yellow,thick] (5, 5) circle (0.2cm);
+
+    \node [left] at (-0.5,5) {$c$};                % label y-intercept
+    \node [left] at (-0.5,0) {$d$};                % label y-intercept
+    \node [below] at (5,-0.5) {$A$};               % label x-intercept
+    \node [below] at (0,-0.5) {$B$};               % label x-intercept
+    
+    \node [left] at (0,2.5) {$q$};                % label y-intercept
+    \node [below] at (2.5,0) {$p$};                % label y-intercept
+    
+    \node[shape=rectangle, minimum width=0.1cm, minimum height=0.1cm, fill=blue] at (5,0) {};
+    \node[shape=rectangle, minimum width=0.1cm, minimum height=0.1cm, fill=blue] at (0,5) {};
+    \node[shape=rectangle, minimum width=0.1cm, minimum height=0.1cm, fill=red] at (5,5) {};
+    \node[shape=rectangle, minimum width=0.1cm, minimum height=0.1cm, fill=red] at (0,0) {};
+\end{tikzpicture}
+
+\begin{tikzpicture}
+    \draw [thin, gray, ->] (0,-0.5) -- (0,7.5)      % draw y-axis line
+        node [above, black] {$P_c$};              % add label for y-axis
+    
+    \draw [thin, gray, ->] (-0.5,0) -- (7.5,0)      % draw x-axis line
+        node [right, black] {$P_A$};              % add label for x-axis
+    
+    \draw [draw=blue] (0,5) -- (2.5,5) -- (2.5,0) -- (5,0);
+    \node [right, blue] at (2.5,3.75) {$\text{Row}$};
+    
+    \draw [draw=red] (0,0) -- (0,2.5) -- (5,2.5) -- (5,5);
+    \node [below, red] at (3.75,2.5) {$\text{Col}$};
+    
+    \draw [draw=-green!40!yellow,thick] (5, 5) circle (0.2cm);
+
+    \node [left] at (-0.5,5) {$c$};                % label y-intercept
+    \node [left] at (-0.5,0) {$d$};                % label y-intercept
+    \node [below] at (5,-0.5) {$A$};               % label x-intercept
+    \node [below] at (0,-0.5) {$B$};               % label x-intercept
+    
+    \node [left] at (0,2.5) {$q$};                % label y-intercept
+    \node [below] at (2.5,0) {$p$};                % label y-intercept
+    
+    \node[shape=rectangle, minimum width=0.1cm, minimum height=0.1cm, fill=blue] at (5,0) {};
+    \node[shape=rectangle, minimum width=0.1cm, minimum height=0.1cm, fill=blue] at (0,5) {};
+    \node[shape=rectangle, minimum width=0.1cm, minimum height=0.1cm, fill=red] at (5,5) {};
+    \node[shape=rectangle, minimum width=0.1cm, minimum height=0.1cm, fill=red] at (0,0) {};
+\end{tikzpicture}
+```{r}
+ggplot() +
+  geom_point(
+    aes(
+      x = 1,
+      y = 0
+    ),
+    shape = 15,
+    size = 1.5,
+    colour = "blue"
+  ) +
+  geom_point(
+    aes(
+      x = 1,
+      y = 1
+    ),
+    shape = 19,
+    size = 1.5,
+    colour = "red"
+  ) +
+  geom_segment(
+    aes(
+      x = 0.5,
+      y = 0,
+      xend = 0.5,
+      yend = 1
+    ),
+    colour = "blue"
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = 0.5,
+      xend = 1,
+      yend = 0.5
+    ),
+    colour = "red"
+  ) +
+  scale_x_continuous(
+    breaks = c(0, 1),
+    labels = c(0, 1)
+  ) +
+  scale_y_continuous(
+    breaks = c(0, 1),
+    labels = c(0, 1)
+  ) +
+  coord_cartesian(
+    xlim = c(0, 1),
+    ylim = c(0, 1),
+    expand = F,
+    clip = "off"
+  ) +
+  labs(
+    x = "p",
+    y = "q"
+  ) +
+  annotate(
+    geom = "segment",
+    x = 0.5, xend = 0.5,
+    y = -0.05, yend = 0.05,
+    colour = "purple"
+  ) +
+  annotate(
+    geom = "label",
+    x = 0.97,
+    y = -0.05,
+    label = "A",
+    colour = "purple"
+  ) +
+  annotate(
+    geom = "label",
+    x = 0.03,
+    y = -0.05,
+    label = "B",
+    colour = "purple"
+  ) +
+  annotate(
+    geom = "label",
+    x = -0.03,
+    y = 0.97,
+    label = "a",
+    colour = "purple"
+  ) +
+  annotate(
+    geom = "label",
+    x = -0.03,
+    y = 0.03,
+    label = "b",
+    colour = "purple"
+  ) +
+  theme_classic()
+```
+
+# Lecture 4
+## Continuous strategies
+In continuous strategies, any given strategy a player chooses is picked with certainty; the pure strategies themselves are continuous. Importantly, this means that the utility functions are continuous (and twice-differentiable).
+
+## Pareto optimality and domination
+Pareto optimality is when the set of payoffs cannot be increased without sacrificing one agent's payoff. A set of payoffs within a strategy profile Pareto-dominates another strategy iff 
+- $x$ is Pareto-optimal if there is no $y$ which Pareto-dominates $x$
+
+## Solving
+- Write all the information (players, final policy, available strategies, preferred policy, pre-bribe policy, utility function)
+  - When necessary, substitute the known variables in the utility functions
+- Take the derivatives of the players' utilities wrt their own strategy to find their optimal responses
+- Solve for the optimal values of their respective responses
+
+Nash equilibria: no one has the incentive to deviate because any attemptt to do so will not be gainful
+
+- Start from the end -> imagine you're the second firm already observing
+- Whatever in the first firm's response is already given
+- First firm anticipates that second firm will respond 
+- Maximises their response given what they know about the other firm's response
+
+# Lecture 6
+## Perfect Bayesian Equilibrium
+### "Non-credible threat"
+- $(R, r)$ is not credible as a threat
+  - If P1 chooses R, P1 expects P2 to respond rationally
+  - Within the info set, $l$ strictly dominates $r$ and therefore $r$ cannot be part of PBE
+  - $L$ weakly dominates $M$ but not $R$
+
+## Signalling games
+### Separating equilibria
+### Pooling equilibria
+
+# Lecture 11
+Prove that if $X$ is finite and $R$ is a complete and reflexive binary relation on $X$, then $M (R,S) \neq \emptyset$ $\forall S \subset X, S \neq \emptyset$ iff $R$ is acyclic.
+
+\textsc{First, I prove} that $M (R,S) \neq \emptyset \rightarrow R$ is acyclic by contradiction, proving that by implication $$\neg(R \text{ is acyclic}) \rightarrow M (R,S) = \emptyset$$
+
+This goal is defined as $$\not \exists x \in S : xRx' \text{ } \forall x' \in S$$
+
+I assume that $R$ is cyclic. This assumption is defined as $$x_i P x_{i + 1} \forall i < n \rightarrow x_1 \not{R} x_n$$
+
+with $i \in \mathbb{N}$. By implication, given $P$ is transitive, $$x_i P x_{i + 1} \forall i < n \rightarrow x_1 P x_{n - 1} \wedge x_1 \not{R} x_n \text{ } \therefore \text{ } x_1 \not{R} x' \forall x' \in S$$
+
+Now, could there be any other $x \neq x_1 \in S : x \in M (R, S)$? We are left with $\{x_2, x_3, ..., x_n\}$. Given $$x_i P x_{i + 1} \rightarrow x_{i + 1} \not{R} x_i \text{ } \therefore \text{ } x_{i + 1} \notin M(R,S)$$ 
+
+We see that $x_1 P x_2 \rightarrow x_2 \not{R} x_1$, $x_2 P x_3 \rightarrow x_3 \not{R} x_2$, etc. Therefore, no $x \neq x_1 \in X$ can be a member of the maximal set.
+
+\textsc{Second, I prove} that $R \text{ is acyclic} \rightarrow M (R,S) \neq \emptyset$ by contradiction, proving that by implication $$M (R,S) = \emptyset \rightarrow \neg(R \text{ is acyclic})$$
+
+This goal is defined as $$x_i P x_{i + 1} \forall i < n \rightarrow x_1 \not{R} x_n$$
+
+I assume that $M (R,S) = \emptyset$. This assumption is defined as $$\not \exists x \in S : xRx' \text{ } \forall x' \in S$$ Recall that for $R$ to be cyclic, $x_i P x_{i + 1} \forall i < n$ has to be true but $x_1 R x_n$ has to be false. $x_i P x_{i + 1} \forall i < n$ eliminates the possibility that $x_i, 1 < i < n$ can be members of the maximal set.
+
+We are left with $x_1$ and this means that $x_1 \not{R} x' \forall x' \in S$.
+
+Given $P$ inheres completeness and transitivity, $$x_1 P x' \text { } \forall x' \neq x_i$$. But $x_1$ isn't a member of the maximal set either, so $\exists x_i : x_1 \not{R} x_i \rightarrow \exists x_i : x_1 \not{P} x_i$. This can only be true if $x_1 \not{R} x_n$, which makes $R$ cyclic.
