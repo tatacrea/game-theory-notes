@@ -227,8 +227,7 @@ The best response function is the set-valued function $b_i : S_{−i} \mapsto S_
 The function $b_i$ maps the members of the domain $S_{-i}$ to the co-domain $S_i$. That is, it maps the strategies of other players to those of our player of interest. $b_i(s_{-i})$ is the function $b_i$ given the input of $s_{-i} \in S_{-i}$. In other words, the best-response function $b_i(s_{-i})$ 'takes in' a specific strategy within the set of 'other players' strategies' and outputs our player of interest's best response.
 
 ## Nash equilibrium ($E(\Gamma)$)
-
-Formally, $$E(\Gamma) = s : s_i \in b_i(s_{-i}) \forall i \in N$$
+A Nash equilibrium is any strategy profile $(s_i, s_{-i})$ such that *when reached, no player has any incentive to deviate* because doing so will not be gainful. Formally, $$E(\Gamma) = s : s_i \in b_i(s_{-i}) \forall i \in N$$
 As the Nash equilibrium is also the intersection between all players' best responses, $$E(\Gamma) = \{s_i \in b_i(s_{-i})\} \cap \{s_{-i} \in b_{-i}(s_{-i})\}$$ In other words, a Nash equilibrium occurs when $$\exists s'_i \in S_i : u_i(s'_i, s_{-i}) ≥ u_i(s_i, s_{-i}) \forall s_i \in S_i \forall i \in N$$
 
 When $\exists ! s \in E(\Gamma)$ in IESDS, that strategy is the game's singular Nash equilibrium.
@@ -242,7 +241,7 @@ A normal form game has a pure strategy Nash equilibrium if $\forall i ∈ N$
 
 Given we are mostly going to deal with one-dimensional strategy spaces $S_i$, an uninterrupted range along the number line (~ continuous, i.e., no gaps in the range) meets the criteria for convexity.
 
-A utility function $u : S_i \mapsto \mathbb{R}$ is concave if $$f(\lambda x + (1 - \lambda)y) > \lambda f(x) + (1- \lambda) f(y)$$ $\forall x, y \in S_i, x \neq y, \lambda \in [0, 1]$.
+A utility function $u : S_i \mapsto \mathbb{R}$ is concave if $$f(\lambda x + (1 - \lambda)y) > \lambda f(x) + (1- \lambda) f(y)$$ $\forall x, y \in S_i, x \neq y, \lambda \in [0, 1]$. We are going to encounter this again in lecture 13.
 
 ### Application: Downs' model
 
@@ -396,6 +395,7 @@ Step 4: Extend each curve by marking the best response of each player given the 
     \node[shape=rectangle, minimum width=0.1cm, minimum height=0.1cm, fill=red] at (0,0) {};
 \end{tikzpicture}
 ```{r}
+#| echo: false
 ggplot() +
   geom_point(
     aes(
@@ -497,20 +497,63 @@ Pareto optimality is when the set of payoffs cannot be increased without sacrifi
 - $x$ is Pareto-optimal if there is no $y$ which Pareto-dominates $x$
 
 ## Solving
+Solving continuous games means finding the location marking the joint maxima of all players' utility functions. Technically, the FOC/SOC are neither sufficient nor necessary conditions:
+- It may return a mere local maximum, rather than the global maximum given the range of strategies
+- Solving for a point that meets the criteria may take you outside of the strategy space
+
+With that out of the way, the games you need to solve in the exam will still largely revolve around single-peaked preferences whose peak lies within the strategy space. To solve for each player's best response,
+
 - Write all the information (players, final policy, available strategies, preferred policy, pre-bribe policy, utility function)
   - When necessary, substitute the known variables in the utility functions
 - Take the derivatives of the players' utilities wrt their own strategy to find their optimal responses
 - Solve for the optimal values of their respective responses
-
-Nash equilibria: no one has the incentive to deviate because any attemptt to do so will not be gainful
 
 - Start from the end -> imagine you're the second firm already observing
 - Whatever in the first firm's response is already given
 - First firm anticipates that second firm will respond 
 - Maximises their response given what they know about the other firm's response
 
+# Lecture 5
+## Dynamic games
+**Dynamic games** or **extensive-form games** are games which unfold in multiple, sequential stages. We visualise them through rooted tree diagrams, with a single starting node and one or many terminal nodes.
+
+Formally, a dynamic game $\Gamma(N, H, p, A, I, U)$ consists of
+
+- The set $N$ of players, $i \in N$
+- The set $H$ of histories, $h \in H$ (corresponds to the set of nodes), with the following important subsets:
+  - The initial node, $H^0 = \emptyset$
+  - Terminal histories, $H^T$
+- An assignment of players to each non-terminal node, $p(h) : H \mapsto N \text{ } \forall h \in H \backslash \{H^T\}$
+- An assignment of actions $p(h)$ may take to each non-terminal history (corresponds to the set of vertices), $A(h) \text{ } \forall h \in H \backslash \{H^T\}$
+- Information sets, $I \subset H \backslash \{H^T\} : h, h' \in I \Longleftrightarrow p(h) = p(h')$
+  - If $h, h' \in I$, player $p(h)$ is uncertain whether they are at $h$ or $h'$ (they cannot distinguish between the nodes ex ante)
+  - If some information set has a cardinality of 1, $\exists I : |I| = 1$, it is a singleton
+- The set of payoffs *at every terminal node*, $U = {u_i(h) : H^T \mapsto \mathbb{R}^1 \forall i \in N}$
+
+## Actions and strategies
+Unlike in static games, dynamic games inhere a distinction between action and strategy. A strategy is a plan of action for a given player in all scenarios, whereas an action is a single move (analogous to a strategy in a static game).
+
+A strategy profile for player $i \in N$ is a correspondence $s_i(h) : H_i \mapsto A(h)$
+
 # Lecture 6
+## Subgame-perfect equilibrium
+The subgame-perfect equilibrium (SPE) or subgame-perfect Nash equilibrium (SPNE) is a refinement of the Nash equilibrium which removes unreasonable actions in the off-equilibrium path.
+
+We find the Nash equilibrium in every subgame, then filter for the ones where the best responses are played in all subgames.
+
+## Backward induction
+
+- One-shot deviation rule: 
+
+# Lecture 7
+## Signalling game
+
+# Lecture 8
 ## Perfect Bayesian Equilibrium
+### Entry game
+Whether $R$ or $NR$ is *sequentially rational* depends on what *beliefs* player 2 assigns to the possible histories within the information set over which they are uncertain.
+
+ Suppose player 2 
 ### "Non-credible threat"
 - $(R, r)$ is not credible as a threat
   - If P1 chooses R, P1 expects P2 to respond rationally
@@ -518,30 +561,137 @@ Nash equilibria: no one has the incentive to deviate because any attemptt to do 
   - $L$ weakly dominates $M$ but not $R$
 
 ## Signalling games
+Signalling games broadly have two types of equilibria: separating and pooling equilibria. The implication of there being different types of equilibria is that the first player needs to be aware that even if player 1 does not know the state of the world, player 2's message may convey information to that end and result in player 2 undergoing belief updating.
+
 ### Separating equilibria
+Separating equilibria are those where the messages sent by player 1 enable player 2 to distinguish between the different states of the world.
+
+To solve for separating equilibria,
+
+- Look for situations/strategies in which the action chosen by the two types of P1 differ
+- Make an assumption of P1's action/move given its type
+- Create weakly consistent beliefs for P2 and choose on sequentially rational actions by P2
+- Check whether P1's actions are still the best response
+
 ### Pooling equilibria
+Pooling equilibria are those where player 1 sends the same message regardless of the state of the world, resulting in an uninformative signal to player 2 and no belief updating on their part.
+
+To solve for pooling equilibria, 
+
+- Check for any strictly dominated strategies and eliminate them
+- Start by assuming an action by P1 (same action regardless of type, since this is pooling)
+- Check for which responses by P2 the action would be a mutual best response
+- Calculate for which prior beliefs P2 would choose which action
+  - Since P2 cannot distinguish between the different states of the world on the basis of P1's actions, the prior probability determines the action chosen by the 2nd player
+- Calculate the probabilities on/off the equil path for which the assumed action by P1 would be a mutual best response
+- Find a probability such that we have an equilibrium
+
+# Lecture 9
+## Cheap talk
+Cheap talk games are a family of incomplete-information dynamic games where
+
+- The first player is aware of Nature's draw, but not the second
+- The payoff doesn't depend on the sender's signal
+
+The implication of this model is that any talk is only credible if it is costly.
+
+## Continuous Bayes' rule
+### Revisiting Bayes' theorem for discrete events
+Bayes' rule defines the probability of A being true given that B happened as the probability of both A and B being true divided by the probability of B, i.e., $$\Pr(A|B) = \frac{\Pr(A \cap B)}{\Pr (B)}$$
+We note that $$\Pr(A \cap B) = \Pr(A) \Pr(B|A)$$
+Therefore, $$\frac{\Pr(A \cap B)}{\Pr (B)} = \frac{\Pr(A) \Pr(B|A)}{\Pr (B)}$$
+We can also manipulate $\Pr(B)$, the probability of $B$ *unconditional of* $A$. We write it in expanded form as the probability of $B \wedge A$ *plus* the probability of $B \wedge \neg A$: 
+$$\begin{array}{rl}
+\Pr(B) &= \Pr(B \cap A) + \Pr(B \cap \neg A) \\
+&= \Pr(A) \Pr(B|A) + \Pr(\neg A) \Pr(\neg B|A)
+\end{array}$$
+This means that $$\begin{array}{rl}
+\frac{\Pr(A) \Pr(B|A)}{\Pr (B)} &= \frac{\Pr(A) \Pr(B|A)}{\Pr(B \cap A) + \Pr(B \cap \neg A)} \\
+&= \frac{\Pr(A) \Pr(B|A)}{\Pr(A) \Pr(B|A) + \Pr(\neg A) \Pr(\neg B|A)
+}\end{array}$$
+
+### From discrete to continuous
+For two continuous random variables (CRVs) X & Y, Bayes' theorem is derived from the definition of the PDF $$f_{X|Y=y}(x) = \frac{f_{X,Y}(x,y)}{f_Y(y)}$$ 
+Superimposing this upon our description of the discrete Bayes' rule, we understand that the probability of $X = x$ being true given that we observe $Y = y$ is the probability of $X = x$ and $Y = y$ being true divided by the probability of $Y = y$. That is, the probability that the IV takes some value $X = x$ given that the DV takes the value $Y = y$ is equal to the probability that some observation takes values $X=x$ *and* $Y=y$, normalised by the probability of the IV being $y$.
+
+This means that to derive Bayes' rule,
+
+$$
+\begin{array}{rl}
+f_{X|Y=y}(x) &= \frac{f_{X,Y}(x,y)}{f_Y(y)} \\
+&= \frac{f_{X}(x) f_{Y|X=x}(y)}{f_Y(y)} \\
+(&= \frac{f_{X}(x) f_{Y|X=x}(y)}{f_{X}(x) f_{Y|X=x}(y) + f_{X}(\neg x) f_{Y|X \neq x}(y)})
+\end{array}
+$$
+In practice, the second form suffices, hence the brackets around the third form.
+
+## Sequence of moves
+1. Nature draws the state of the world $\omega$
+2. $\omega$ is revealed to the first player, but not the second
+3. The first player sends a message $\delta$
+4. The second player chooses an action
+5. The payoffs are realised, with the utilities being dependent exclusively on $\omega$
+
+## Scenario: house committees in budget negotiations
+The floor $F$ of a parliament must decide on a defence budget. There is an objective required level $\omega$ of spending, unknown to $F$. The defence committee $C$ knows the required spending and gives advice $\delta$ to $F$. Their incentives are partiallyaligned: whatever the required spend, the committee wants to spend just a little more. This is represented *in* $C$*'s utility function* as a bias $C > 0$.
+
+Can there be any informative communication strategy? For that, we need to look for pure-strategy equilibria with informative messages; suppose $C$ adopting a policy of honesty such that $$\forall \omega, \delta = \omega$$
+
+F's posterior belief is that the true state of the world is $\omega$, i.e., $$f_{X|\delta = \omega}(\omega) = \frac{f_{X}(\omega) f_{\delta|X=\omega}(\omega)}{f_\delta(\omega)} = 1$$
+
+## Solving a cheap-talk game
+- Show that there is no separating equilibrium
+- Find a pooling equilibrium
+  - Assume that player 1 always signals some message
+  - Player 2 will therefore not undergo updating, i.e., $\Pr(\theta | \delta) = \Pr(\theta)$
+  - Choose a strategy that maximises Player 2's utility since only their action determines the outcome
+- Find a possible partially informative/restricted equilibrium
+  - Establish condition: partially informative messaging between… which bounds?
+  - Establish strategies: player 2 has a continuous strategy space, while player 1 has a finite strategy space between the different possible signals/messages
+  - Find player 2's best responses to each message, given $\Pr(\theta|\delta)=\Pr(\omega\in[0,\bar{\omega}])$, and keep in mind that this is knowable to player 1
+  - Find for which ranges of bias $c$ and state $\omega$ player 1 will not have any incentive to deviate
+- Variation: find whether there is a partially informative equilibrium given some $c$ value (e.g., 0.1)
+
+note: F has continuous strategies, whereas C only has two (discrete) here. you were initially planning to just maximise their utility function.
+
+you wouldn't have made this mistake had you been aware that their incentive to deviate between low and high, nothing else
+
+think more conceptually
+
+## PBE with restricted message spaces
+...
+
+## Strategic information transmission
+- When information transmission is costless, there is always a pooling (babbling) equilibria
+- There are informative equilibria if the message is vague enough that knowledge of the messenger's biases $c$ doesn't unravel the equilibrium (more likely when $c$ is small)
+- The amount of information that can be transmitted depends on how well-aligned the preferences are/how small $c$ is
 
 # Lecture 11
 Prove that if $X$ is finite and $R$ is a complete and reflexive binary relation on $X$, then $M (R,S) \neq \emptyset$ $\forall S \subset X, S \neq \emptyset$ iff $R$ is acyclic.
 
-\textsc{First, I prove} that $M (R,S) \neq \emptyset \rightarrow R$ is acyclic by contradiction, proving that by implication $$\neg(R \text{ is acyclic}) \rightarrow M (R,S) = \emptyset$$
+\textsc{First, I prove} that $M (R,S) \neq \emptyset \rightarrow R$ is acyclic by contraposition, i.e., $$\neg(R \text{ is acyclic}) \rightarrow M (R,S) = \emptyset$$
 
 This goal is defined as $$\not \exists x \in S : xRx' \text{ } \forall x' \in S$$
 
 I assume that $R$ is cyclic. This assumption is defined as $$x_i P x_{i + 1} \forall i < n \rightarrow x_1 \not{R} x_n$$
 
-with $i \in \mathbb{N}$. By implication, given $P$ is transitive, $$x_i P x_{i + 1} \forall i < n \rightarrow x_1 P x_{n - 1} \wedge x_1 \not{R} x_n \text{ } \therefore \text{ } x_1 \not{R} x' \forall x' \in S$$
+with $i \in \mathbb{N}$. By implication, given $P$ is transitive, $$x_i P x_{i + 1} \forall i < n \rightarrow x_1 P x_{i + 1}, i < (n - 1) \wedge x_1 \not{R} x_n \text{ } \therefore \text{ } x_1 \not{R} x' \forall x' \in S$$
 
 Now, could there be any other $x \neq x_1 \in S : x \in M (R, S)$? We are left with $\{x_2, x_3, ..., x_n\}$. Given $$x_i P x_{i + 1} \rightarrow x_{i + 1} \not{R} x_i \text{ } \therefore \text{ } x_{i + 1} \notin M(R,S)$$ 
 
-We see that $x_1 P x_2 \rightarrow x_2 \not{R} x_1$, $x_2 P x_3 \rightarrow x_3 \not{R} x_2$, etc. Therefore, no $x \neq x_1 \in X$ can be a member of the maximal set.
+We see that $x_1 P x_2 \rightarrow x_2 \not{R} x_1$, $x_2 P x_3 \rightarrow x_3 \not{R} x_2$, etc. Therefore, no $x \neq x_1 \in S$ can be a member of the maximal set.
 
-\textsc{Second, I prove} that $R \text{ is acyclic} \rightarrow M (R,S) \neq \emptyset$ by contradiction, proving that by implication $$M (R,S) = \emptyset \rightarrow \neg(R \text{ is acyclic})$$
+\textsc{Second, I prove} that $R \text{ is acyclic} \rightarrow M (R,S) \neq \emptyset$. This goal is defined as $$\exists x \in S : xRx' \text{ } \forall x' \in S$$
+
+I assume that $R$ is acyclic. This assumption is defined as $$x_i P x_{i + 1} \forall i < n \rightarrow x_1 R x_n$$
+
+By transitivity and completeness of $P$, $x_1 P x_2$, $x_1 P x_3$, and so on. 
+
+## Previous soln
+\textsc{Second, I prove} that $R \text{ is acyclic} \rightarrow M (R,S) \neq \emptyset$ by contraposition, i.e., $$M (R,S) = \emptyset \rightarrow \neg(R \text{ is acyclic})$$
 
 This goal is defined as $$x_i P x_{i + 1} \forall i < n \rightarrow x_1 \not{R} x_n$$
 
-I assume that $M (R,S) = \emptyset$. This assumption is defined as $$\not \exists x \in S : xRx' \text{ } \forall x' \in S$$ Recall that for $R$ to be cyclic, $x_i P x_{i + 1} \forall i < n$ has to be true but $x_1 R x_n$ has to be false. $x_i P x_{i + 1} \forall i < n$ eliminates the possibility that $x_i, 1 < i < n$ can be members of the maximal set.
+I assume that $M (R,S) = \emptyset$. This assumption is defined as $$\not \exists x \in S : xRx' \text{ } \forall x' \in S$$ Recall that for $R$ to be cyclic, $x_i P x_{i + 1} \forall i < n$ has to be true and $x_1 R x_n$ has to be false. There is nothing to be proven for $x_i, 1 < i < n$ as $x_i P x_{i + 1} \forall i < n \rightarrow x_{i + 1} \not{R} x_i$. We are left with $x_1$ and we already know that $x_1 \not{R} x' \forall x' \in S$.
 
-We are left with $x_1$ and this means that $x_1 \not{R} x' \forall x' \in S$.
-
-Given $P$ inheres completeness and transitivity, $$x_1 P x' \text { } \forall x' \neq x_i$$. But $x_1$ isn't a member of the maximal set either, so $\exists x_i : x_1 \not{R} x_i \rightarrow \exists x_i : x_1 \not{P} x_i$. This can only be true if $x_1 \not{R} x_n$, which makes $R$ cyclic.
+Given $P$ inheres completeness and transitivity, $$\exists x_i : x_1 P x' \text{ } \forall x' \neq x_i \wedge x_1 \not{R} x_i \rightarrow \exists x_i : x_1 R x' \text{ } \forall x' \neq x_i \wedge x_1 \not{R} x_i$$ This can only be true if $x_1 \not{R} x_n$, which makes $R$ cyclic.
