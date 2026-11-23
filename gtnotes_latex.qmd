@@ -6,6 +6,7 @@ format:
     include-in-header:  
         - text: |
             \usepackage{amstext}
+            \usepackage{cancel}
             \usepackage{amsthm}
             \usepackage{tcolorbox}
             \usepackage{amssymb, amsmath}
@@ -695,3 +696,168 @@ This goal is defined as $$x_i P x_{i + 1} \forall i < n \rightarrow x_1 \not{R} 
 I assume that $M (R,S) = \emptyset$. This assumption is defined as $$\not \exists x \in S : xRx' \text{ } \forall x' \in S$$ Recall that for $R$ to be cyclic, $x_i P x_{i + 1} \forall i < n$ has to be true and $x_1 R x_n$ has to be false. There is nothing to be proven for $x_i, 1 < i < n$ as $x_i P x_{i + 1} \forall i < n \rightarrow x_{i + 1} \not{R} x_i$. We are left with $x_1$ and we already know that $x_1 \not{R} x' \forall x' \in S$.
 
 Given $P$ inheres completeness and transitivity, $$\exists x_i : x_1 P x' \text{ } \forall x' \neq x_i \wedge x_1 \not{R} x_i \rightarrow \exists x_i : x_1 R x' \text{ } \forall x' \neq x_i \wedge x_1 \not{R} x_i$$ This can only be true if $x_1 \not{R} x_n$, which makes $R$ cyclic.
+
+# Lecture 14
+## The motivating problem: collective action
+Collective action problems afflict low-excludability goods, resulting in the free-rider problem (public goods) or overconsumption (common-pool resources). 
+
+## The requisite concept: discounting
+**Discounting** is the formalisation of the preference for imminent consumption. In this case, it encompasses the higher subjective valuation of some fixed value of utility at a more proximate time period than at a more distant one. It has its origins in psychology, and at least within the field there is a great deal of nuance to the concept (e.g., variation in discounting rates over time and circumstances), but for parsimony we are only dealing with constant discounting factors here.
+
+Discounting is operationalised as a constant $\delta$ that can take any value between 0 and 1, (nominally) inclusive. This constant then gets multiplied by the utility $n$ times for every period standing between $t$ and $t + n$.
+
+Of particular interest is *proper discounting*, where $\delta \in (0, 1)$. A discount factor of 1 means that there is no discounting going on. A discount factor of 0 means that the future is entirely irrelevant to the player.
+
+## The requisite maths
+We want to figure out the solution to $\delta^0 + \delta^1 + \delta^2 + ... + \delta^n$. We can just multiply it by $(1 - \delta)$ and then divide it back.
+
+$$
+\begin{array}{rll}
+\delta^0 + \delta^1 + \delta^2 + ... + \delta^n &= \frac{\delta^0 + \delta^1 + \delta^2 + ... + \delta^n(1 - \delta)}{1 - \delta}  \\
+&= \frac{\delta^0 + \cancel{\delta^1} + \cancel{\delta^2} + ... + \cancel{\delta^n} - \cancel{\delta^1} - \cancel{\delta^2} - ... - \cancel{\delta^n} - \delta^{n+1}}{1 - \delta} \\
+\sum_{t = 1}^n \delta^t &= \frac{1 - \delta^{n+1}}{1 - \delta} & \text{(xiv.i)}
+\end{array}
+$$
+
+In an infinitely repeated game and given a proper discounting factor $\delta \in (0,1)$, 
+
+$$
+\begin{array}{rll}
+\lim_{n \rightarrow \infty} \delta^{n + 1} &= 0 \\
+\lim_{n \rightarrow \infty} \frac{1 - \delta^{n+1}}{1 - \delta} &= \frac{1}{1 - \delta} & (\text{xiv.ii})
+\end{array}
+$$
+If a player gets $u$ at each $t_i \in T$ and $T = \infty$, the present value $v$ of the total payoff is given as
+
+$$
+\begin{array}{rll}
+v &= u + \delta u + ... + \delta^n u \\
+&= u (\frac{1}{1 - \delta}) \\
+&= \frac{u}{1 - \delta} & (\text{xiv.iii})
+\end{array}
+$$
+For future instances of one-shot deviation e.g., at the present $t$, it is also helpful to break this expression apart and take out e.g., the first $u$, giving us
+
+$$
+\begin{array}{rll}
+\delta u + ... + \delta^n u &= \frac{u}{1 - \delta} - u \\
+&= \frac{u}{1 - \delta} - \frac{u(1 - \delta)}{1 - \delta} \\
+&= \frac{u - u + u \delta}{1 - \delta} \\
+&= \frac{u \delta}{1 - \delta} \\
+\frac{u}{1 - \delta} &= u + \frac{u \delta}{1 - \delta} & (\text{xiv.iv})
+\end{array}
+$$
+
+## Definition
+$S^{t-1}$ is the space of strategy profiles in the previous round.
+
+Note: Strategy spaces and strategy profile spaces are denoted with a capital S, with its members being strategies and strategy profiles respectively.
+
+### Stage game of choice
+We choose the prisoner's dilemma as our stage game of choice.
+\begin{center}
+\begin{tabular}{cccc}
+& & \multicolumn{2}{c}{Player 2} \\
+& & \multicolumn{1}{c}{D} & \multicolumn{1}{c}{C} \\
+\cline{3-4}
+\multirow{2}{*}{Player 1} & \multicolumn{1}{c|}{D} & \multicolumn{1}{|c|}{$p,p$} & \multicolumn{1}{|c|}{$t,s$} \\
+\cline{3-4}
+& \multicolumn{1}{c|}{C} & \multicolumn{1}{|c|}{$s,t$} & \multicolumn{1}{|c|}{$r,r$} \\
+\cline{3-4}
+\end{tabular}
+\end{center}
+where \textit{t(emptation)} $>$ \textit{r(eward)} $>$ \textit{p(unishment)} $>$ \textit{s(ucker)}.
+
+## Strategies
+### Grim Trigger (GT)
+The *grim trigger* strategy is one of cooperation until anyone^[In a different version, 'an opponent'; this has implications for the equilibria] defects.
+
+Say that we are on the cooperation path, with the strategy profile $CC$ being played throughout. This gives us the repeated strategy profile $(CC, CC, CC, ...)$. Here, the total payoff is 
+
+$$
+\begin{array}{rrll}
+& v_0 &= r + r \delta + r \delta^2 \\
+\text{from (xiv.iii)} & &= \frac{r}{1 - \delta} & (14.1)
+\end{array}
+$$
+Now consider a one-shot deviation (e.g., in the first period, say, by player 1). This gives us the repeated strategy profile $(DC, DD, DD)$. The total payoff for player 1 is now 
+$$
+\begin{array}{rrll}
+& v_1 &= t + p \delta + p \delta^2 + ... & \\
+\text{from (xiv.iv)} & &= t + \frac{p \delta}{1 - \delta} & (14.2) \\
+\end{array}
+$$
+Whether the one-shot deviation payoff is larger than the grim trigger cooperation payoff depends on the relative sizes of $t$, $r$, and $p$. We now want to find scenarios for which there is no incentive to deviate (i.e., the conditions where the Grim Trigger path yields a higher $v$ than that of the one-shot deviation).
+
+From (14.1) and (14.2), (GT, GT) is an equilibrium iff
+
+$$
+\begin{array}{rrll}
+& \frac{r}{1 - \delta} &\geq t + \frac{p \delta}{1 - \delta} & \\
+& r &\geq t(1 - \delta) + p \delta & \\
+& r &\geq t - t \delta + p \delta & \\
+& r &\geq t - \delta(t - p) & \\
+& r - t &\geq \delta(t - p) \\
+& \delta(t - p) &\geq t - r & \\
+& \delta &\geq \frac{t - r}{t - p} &
+\end{array}
+$$
+Under these conditions (passing the one-shot deviation test), GT is an SPE. Furthermore, the implications of this equation are that for the SPE-ness to hold,
+
+- The discount factor $\delta$ must be large, i.e., the players must be patient enough
+- The reward $r$ should be large; given $t > r$, the numerator 'shrinks' s.t.
+$$
+\lim_{r \rightarrow t} \frac{t - r}{t - p} = \frac{0}{t - p} = 0
+$$
+and the value of the threshold $\frac{t - r}{t - p}$ is smaller (easier for $\delta$ to clear)
+- The punishment should be 'large' s.t. $p$ is small; given $t > p$, the denominator 'grows' s.t.
+$$
+\lim_{p \rightarrow -\infty} \frac{t - r}{t - p} = \frac{t-r}{t + \infty} = 0
+$$
+and the value of the threshold $\frac{t - r}{t - p}$ is smaller (easier for $\delta$ to clear)
+
+**Note**: Why is checking one-shot enough? Consider the following two-shot scenarios:
+
+- $(DC, CD, DD, DD)$, focusing on player 1
+$$
+\begin{array}{rrll}
+& v_{2a} &= t + s \delta + p \delta^2 + p \delta^3 + ... & \\
+& s &< p & \\
+& t + s \delta + p \delta^2 + p \delta^3 + ... &< t + p \delta + p \delta^2 + p \delta^3 + ...\\
+\text{from (14.2)} & v_{2a} &< v_1 & 
+\end{array}
+$$
+- $(DC, DD, CD, DD)$, focusing on player 1
+$$
+\begin{array}{rrll}
+& v_{2b} &= t + p \delta + s \delta^2 + p \delta^3 + ... & \\
+& s &< p & \\
+& t + p \delta + s \delta^2 + p \delta^3 + ... &< t + p \delta + p \delta^2 + p \delta^3 + ...\\
+\text{from (14.2)} & v_{2b} &< v_1 & 
+\end{array}
+$$
+For an equilibrium to hold, $v_1 < v_0$. As $v_{2a} < v_1$ and $v_{2b} < v_1$, by transitivity they are also smaller than $v_0$.
+
+To check for subgame perfection, consider a defection history. For example, assume again that player 1 defects at $t = 1$. Player 2's total payoff from sticking with GT is $$v = s + p \delta + p \delta^2 + ...$$
+Their total payoff from deviating is $$v = s + s \delta + p \delta^2 + ...$$
+Once again,
+$$
+\begin{array}{rl}
+s &< p \\
+s + s \delta + p \delta^2 + ... &< s + p \delta + p \delta^2 + ...
+\end{array}
+$$
+and player 2 has no incentive to deviate either.
+
+### Tit-for-tat (TFT) strategy
+The *tit-for-tat strategy* is a strategy where players start with cooperation and mimic the other players' behaviour going forward.
+
+
+$$
+\begin{array}{rl}
+\end{array}
+$$
+$$
+\begin{array}{rl}
+\end{array}
+$$
