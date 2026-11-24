@@ -210,11 +210,12 @@ Games to be solved by *iterated elimination* necessarily have *no* (single) domi
 Your *equilibrium* $E(\Gamma) = \{(s_i, s_{-i})\}$, **not** $\{u_i, u_{-i}\}$. In this case, $E(\Gamma) = \{(D, r)\}$, **not** $\{(5, 6)\}$. The latter is instead the *set of payoffs* in that equilibrium.
 
 # Lecture 2
+
 ## Best response strategies
+
 ### A primer on functions
 
-The formal definition of a function $f : x \mapsto y$ is $$\forall x \in X, \exists ! y \in Y : x \mapsto y$$
-Importantly, it limits the scope of 'for all $x$' to members of the set $X$, meaning that if you limit the set of domain members, there doesn't have to be a mapping 'connection' to the complete (i.e., universe) set; only the subset of the universe circumscribed by $X$ (e.g., $\sqrt{x}$ is a function $\Longleftrightarrow X = \{0, \Re^+\}$).
+The formal definition of a function $f : x \mapsto y$ is $$\forall x \in X, \exists ! y \in Y : x \mapsto y$$ Importantly, it limits the scope of 'for all $x$' to members of the set $X$, meaning that if you limit the set of domain members, there doesn't have to be a mapping 'connection' to the complete (i.e., universe) set; only the subset of the universe circumscribed by $X$ (e.g., $\sqrt{x}$ is a function $\Longleftrightarrow X = \{0, \Re^+\}$).
 
 Injective: $\forall x_1, x_2 \in X, f(x_1) = f(x_2) \Longrightarrow x_1 = x_2$ (if the function outputs of two domain members are the same, then the two domain members are equal to each other)
 
@@ -224,23 +225,23 @@ Surjective: $\forall y \in Y, \exists x \in X : f(x) = y$ (every member of the c
 
 A strategy $s′_i$ is a best response strategy of player $i$ to a strategy profile $s_{−i}$ if $u_i(s′_i, s_{−i}) ≥ u_i(s_i, s_{−i})$ for all $s_i ∈ S_i$. Put simply, it's just a way for us to describe a player's best strategy given *some strategy profile* employed by all the other players. When a best-response strategy applies $\forall s_{-i} \in S_{-i}$ (i.e., unconditional), it is a dominant strategy.
 
-The best response function is the set-valued function $b_i : S_{−i} \mapsto S_i$ with $$b_i(s_{−i}) = \arg\max\limits_{s_i ∈ S_i} u_i(s_i, s_{−i})$$
-The function $b_i$ maps the members of the domain $S_{-i}$ to the co-domain $S_i$. That is, it maps the strategies of other players to those of our player of interest. $b_i(s_{-i})$ is the function $b_i$ given the input of $s_{-i} \in S_{-i}$. In other words, the best-response function $b_i(s_{-i})$ 'takes in' a specific strategy within the set of 'other players' strategies' and outputs our player of interest's best response.
+The best response function is the set-valued function $b_i : S_{−i} \mapsto S_i$ with $$b_i(s_{−i}) = \arg\max\limits_{s_i ∈ S_i} u_i(s_i, s_{−i})$$ The function $b_i$ maps the members of the domain $S_{-i}$ to the co-domain $S_i$. That is, it maps the strategies of other players to those of our player of interest. $b_i(s_{-i})$ is the function $b_i$ given the input of $s_{-i} \in S_{-i}$. In other words, the best-response function $b_i(s_{-i})$ 'takes in' a specific strategy within the set of 'other players' strategies' and outputs our player of interest's best response.
 
 ## Nash equilibrium ($E(\Gamma)$)
-A Nash equilibrium is any strategy profile $(s_i, s_{-i})$ such that *when reached, no player has any incentive to deviate* because doing so will not be gainful. Formally, $$E(\Gamma) = s : s_i \in b_i(s_{-i}) \forall i \in N$$
-As the Nash equilibrium is also the intersection between all players' best responses, $$E(\Gamma) = \{s_i \in b_i(s_{-i})\} \cap \{s_{-i} \in b_{-i}(s_{-i})\}$$ In other words, a Nash equilibrium occurs when $$\exists s'_i \in S_i : u_i(s'_i, s_{-i}) ≥ u_i(s_i, s_{-i}) \forall s_i \in S_i \forall i \in N$$
+
+A Nash equilibrium is any strategy profile $(s_i, s_{-i})$ such that *when reached, no player has any incentive to deviate* because doing so will not be gainful. Formally, $$E(\Gamma) = s : s_i \in b_i(s_{-i}) \forall i \in N$$ As the Nash equilibrium is also the intersection between all players' best responses, $$E(\Gamma) = \{s_i \in b_i(s_{-i})\} \cap \{s_{-i} \in b_{-i}(s_{-i})\}$$ In other words, a Nash equilibrium occurs when $$\exists s'_i \in S_i : u_i(s'_i, s_{-i}) ≥ u_i(s_i, s_{-i}) \forall s_i \in S_i \forall i \in N$$
 
 When $\exists ! s \in E(\Gamma)$ in IESDS, that strategy is the game's singular Nash equilibrium.
 
 ### When does a Nash equilibrium exist?
+
 A normal form game has a pure strategy Nash equilibrium if $\forall i ∈ N$
 
 - $S_i$ is a non-empty, convex and compact subset of $\mathbb{R}^{m_i}$
 - $u_i(s_i, s_{−i})$ is continuous in $s_{−i}$
 - $u_i(s_i, s_{−i})$ is continuous and concave in $s_i$ (technically, quasi-concavity suffices)
 
-Given we are mostly going to deal with one-dimensional strategy spaces $S_i$, an uninterrupted range along the number line (~ continuous, i.e., no gaps in the range) meets the criteria for convexity.
+Given we are mostly going to deal with one-dimensional strategy spaces $S_i$, an uninterrupted range along the number line (\~ continuous, i.e., no gaps in the range) meets the criteria for convexity.
 
 A utility function $u : S_i \mapsto \mathbb{R}$ is concave if $$f(\lambda x + (1 - \lambda)y) > \lambda f(x) + (1- \lambda) f(y)$$ $\forall x, y \in S_i, x \neq y, \lambda \in [0, 1]$. We are going to encounter this again in lecture 13.
 
@@ -249,10 +250,13 @@ A utility function $u : S_i \mapsto \mathbb{R}$ is concave if $$f(\lambda x + (1
 Downs' model of two-party competition is a theory exploring how party campaigning dynamics converge upon the pursuit of the median voter within a two-party system.
 
 # Lecture 3
+
 ## Indifference in mixed strategies
+
 A way to conceptualise indifference between strategies is to think of situations where you would want to be unpredictable and 'randomise' your moves, lest the other players be able to counter them.
 
 ## Drawing best response curves
+
 Step 0: (Re-)familiarise yourself with what the axes mean
 
 \begin{tikzpicture}
@@ -366,7 +370,6 @@ Step 4: Extend each curve by marking the best response of each player given the 
     \node[shape=rectangle, minimum width=0.1cm, minimum height=0.1cm, fill=red] at (5,5) {};
     \node[shape=rectangle, minimum width=0.1cm, minimum height=0.1cm, fill=red] at (0,0) {};
 \end{tikzpicture}
-
 \begin{tikzpicture}
     \draw [thin, gray, ->] (0,-0.5) -- (0,7.5)      % draw y-axis line
         node [above, black] {$P_c$};              % add label for y-axis
@@ -395,6 +398,7 @@ Step 4: Extend each curve by marking the best response of each player given the 
     \node[shape=rectangle, minimum width=0.1cm, minimum height=0.1cm, fill=red] at (5,5) {};
     \node[shape=rectangle, minimum width=0.1cm, minimum height=0.1cm, fill=red] at (0,0) {};
 \end{tikzpicture}
+
 ```{r}
 #| echo: false
 ggplot() +
@@ -490,32 +494,41 @@ ggplot() +
 ```
 
 # Lecture 4
+
 ## Continuous strategies
+
 In continuous strategies, any given strategy a player chooses is picked with certainty; the pure strategies themselves are continuous. Importantly, this means that the utility functions are continuous (and twice-differentiable).
 
 ## Pareto optimality and domination
-Pareto optimality is when the set of payoffs cannot be increased without sacrificing one agent's payoff. A set of payoffs within a strategy profile Pareto-dominates another strategy iff 
-- $x$ is Pareto-optimal if there is no $y$ which Pareto-dominates $x$
+
+Pareto optimality is when the set of payoffs cannot be increased without sacrificing one agent's payoff. A set of payoffs within a strategy profile Pareto-dominates another strategy iff - $x$ is Pareto-optimal if there is no $y$ which Pareto-dominates $x$
 
 ## Solving
-Solving continuous games means finding the location marking the joint maxima of all players' utility functions. Technically, the FOC/SOC are neither sufficient nor necessary conditions:
-- It may return a mere local maximum, rather than the global maximum given the range of strategies
-- Solving for a point that meets the criteria may take you outside of the strategy space
+
+Solving continuous games means finding the location marking the joint maxima of all players' utility functions. Technically, the FOC/SOC are neither sufficient nor necessary conditions: - It may return a mere local maximum, rather than the global maximum given the range of strategies - Solving for a point that meets the criteria may take you outside of the strategy space
 
 With that out of the way, the games you need to solve in the exam will still largely revolve around single-peaked preferences whose peak lies within the strategy space. To solve for each player's best response,
 
 - Write all the information (players, final policy, available strategies, preferred policy, pre-bribe policy, utility function)
+
   - When necessary, substitute the known variables in the utility functions
+
 - Take the derivatives of the players' utilities wrt their own strategy to find their optimal responses
+
 - Solve for the optimal values of their respective responses
 
-- Start from the end -> imagine you're the second firm already observing
+- Start from the end -\> imagine you're the second firm already observing
+
 - Whatever in the first firm's response is already given
-- First firm anticipates that second firm will respond 
+
+- First firm anticipates that second firm will respond
+
 - Maximises their response given what they know about the other firm's response
 
 # Lecture 5
+
 ## Dynamic games
+
 **Dynamic games** or **extensive-form games** are games which unfold in multiple, sequential stages. We visualise them through rooted tree diagrams, with a single starting node and one or many terminal nodes.
 
 Formally, a dynamic game $\Gamma(N, H, p, A, I, U)$ consists of
@@ -532,39 +545,43 @@ Formally, a dynamic game $\Gamma(N, H, p, A, I, U)$ consists of
 - The set of payoffs *at every terminal node*, $U = {u_i(h) : H^T \mapsto \mathbb{R}^1 \forall i \in N}$
 
 ## Actions and strategies
+
 Unlike in static games, dynamic games inhere a distinction between action and strategy. A strategy is a plan of action for a given player in all scenarios, whereas an action is a single move (analogous to a strategy in a static game).
 
 A strategy profile for player $i \in N$ is a correspondence $s_i(h) : H_i \mapsto A(h)$
 
 # Lecture 6
+
 ## Subgame-perfect equilibrium
+
 The subgame-perfect equilibrium (SPE) or subgame-perfect Nash equilibrium (SPNE) is a refinement of the Nash equilibrium which removes unreasonable actions in the off-equilibrium path.
 
 We find the Nash equilibrium in every subgame, then filter for the ones where the best responses are played in all subgames.
 
 ## Backward induction
 
-- One-shot deviation rule: 
+- One-shot deviation rule:
 
 # Lecture 7
+
 ## Signalling game
 
 # Lecture 8
+
 ## Perfect Bayesian Equilibrium
+
 ### Entry game
+
 Whether $R$ or $NR$ is *sequentially rational* depends on what *beliefs* player 2 assigns to the possible histories within the information set over which they are uncertain.
 
- Suppose player 2 
-### "Non-credible threat"
-- $(R, r)$ is not credible as a threat
-  - If P1 chooses R, P1 expects P2 to respond rationally
-  - Within the info set, $l$ strictly dominates $r$ and therefore $r$ cannot be part of PBE
-  - $L$ weakly dominates $M$ but not $R$
+Suppose player 2 \### "Non-credible threat" - $(R, r)$ is not credible as a threat - If P1 chooses R, P1 expects P2 to respond rationally - Within the info set, $l$ strictly dominates $r$ and therefore $r$ cannot be part of PBE - $L$ weakly dominates $M$ but not $R$
 
 ## Signalling games
+
 Signalling games broadly have two types of equilibria: separating and pooling equilibria. The implication of there being different types of equilibria is that the first player needs to be aware that even if player 1 does not know the state of the world, player 2's message may convey information to that end and result in player 2 undergoing belief updating.
 
 ### Separating equilibria
+
 Separating equilibria are those where the messages sent by player 1 enable player 2 to distinguish between the different states of the world.
 
 To solve for separating equilibria,
@@ -575,9 +592,10 @@ To solve for separating equilibria,
 - Check whether P1's actions are still the best response
 
 ### Pooling equilibria
+
 Pooling equilibria are those where player 1 sends the same message regardless of the state of the world, resulting in an uninformative signal to player 2 and no belief updating on their part.
 
-To solve for pooling equilibria, 
+To solve for pooling equilibria,
 
 - Check for any strictly dominated strategies and eliminate them
 - Start by assuming an action by P1 (same action regardless of type, since this is pooling)
@@ -588,7 +606,9 @@ To solve for pooling equilibria,
 - Find a probability such that we have an equilibrium
 
 # Lecture 9
+
 ## Cheap talk
+
 Cheap talk games are a family of incomplete-information dynamic games where
 
 - The first player is aware of Nature's draw, but not the second
@@ -597,23 +617,20 @@ Cheap talk games are a family of incomplete-information dynamic games where
 The implication of this model is that any talk is only credible if it is costly.
 
 ## Continuous Bayes' rule
+
 ### Revisiting Bayes' theorem for discrete events
-Bayes' rule defines the probability of A being true given that B happened as the probability of both A and B being true divided by the probability of B, i.e., $$\Pr(A|B) = \frac{\Pr(A \cap B)}{\Pr (B)}$$
-We note that $$\Pr(A \cap B) = \Pr(A) \Pr(B|A)$$
-Therefore, $$\frac{\Pr(A \cap B)}{\Pr (B)} = \frac{\Pr(A) \Pr(B|A)}{\Pr (B)}$$
-We can also manipulate $\Pr(B)$, the probability of $B$ *unconditional of* $A$. We write it in expanded form as the probability of $B \wedge A$ *plus* the probability of $B \wedge \neg A$: 
-$$\begin{array}{rl}
+
+Bayes' rule defines the probability of A being true given that B happened as the probability of both A and B being true divided by the probability of B, i.e., $$\Pr(A|B) = \frac{\Pr(A \cap B)}{\Pr (B)}$$ We note that $$\Pr(A \cap B) = \Pr(A) \Pr(B|A)$$ Therefore, $$\frac{\Pr(A \cap B)}{\Pr (B)} = \frac{\Pr(A) \Pr(B|A)}{\Pr (B)}$$ We can also manipulate $\Pr(B)$, the probability of $B$ *unconditional of* $A$. We write it in expanded form as the probability of $B \wedge A$ *plus* the probability of $B \wedge \neg A$: $$\begin{array}{rl}
 \Pr(B) &= \Pr(B \cap A) + \Pr(B \cap \neg A) \\
 &= \Pr(A) \Pr(B|A) + \Pr(\neg A) \Pr(\neg B|A)
-\end{array}$$
-This means that $$\begin{array}{rl}
+\end{array}$$ This means that $$\begin{array}{rl}
 \frac{\Pr(A) \Pr(B|A)}{\Pr (B)} &= \frac{\Pr(A) \Pr(B|A)}{\Pr(B \cap A) + \Pr(B \cap \neg A)} \\
 &= \frac{\Pr(A) \Pr(B|A)}{\Pr(A) \Pr(B|A) + \Pr(\neg A) \Pr(\neg B|A)
 }\end{array}$$
 
 ### From discrete to continuous
-For two continuous random variables (CRVs) X & Y, Bayes' theorem is derived from the definition of the PDF $$f_{X|Y=y}(x) = \frac{f_{X,Y}(x,y)}{f_Y(y)}$$ 
-Superimposing this upon our description of the discrete Bayes' rule, we understand that the probability of $X = x$ being true given that we observe $Y = y$ is the probability of $X = x$ and $Y = y$ being true divided by the probability of $Y = y$. That is, the probability that the IV takes some value $X = x$ given that the DV takes the value $Y = y$ is equal to the probability that some observation takes values $X=x$ *and* $Y=y$, normalised by the probability of the IV being $y$.
+
+For two continuous random variables (CRVs) X & Y, Bayes' theorem is derived from the definition of the PDF $$f_{X|Y=y}(x) = \frac{f_{X,Y}(x,y)}{f_Y(y)}$$ Superimposing this upon our description of the discrete Bayes' rule, we understand that the probability of $X = x$ being true given that we observe $Y = y$ is the probability of $X = x$ and $Y = y$ being true divided by the probability of $Y = y$. That is, the probability that the IV takes some value $X = x$ given that the DV takes the value $Y = y$ is equal to the probability that some observation takes values $X=x$ *and* $Y=y$, normalised by the probability of the IV being $y$.
 
 This means that to derive Bayes' rule,
 
@@ -623,17 +640,18 @@ f_{X|Y=y}(x) &= \frac{f_{X,Y}(x,y)}{f_Y(y)} \\
 &= \frac{f_{X}(x) f_{Y|X=x}(y)}{f_Y(y)} \\
 (&= \frac{f_{X}(x) f_{Y|X=x}(y)}{f_{X}(x) f_{Y|X=x}(y) + f_{X}(\neg x) f_{Y|X \neq x}(y)})
 \end{array}
-$$
-In practice, the second form suffices, hence the brackets around the third form.
+$$ In practice, the second form suffices, hence the brackets around the third form.
 
 ## Sequence of moves
-1. Nature draws the state of the world $\omega$
-2. $\omega$ is revealed to the first player, but not the second
-3. The first player sends a message $\delta$
-4. The second player chooses an action
-5. The payoffs are realised, with the utilities being dependent exclusively on $\omega$
+
+1.  Nature draws the state of the world $\omega$
+2.  $\omega$ is revealed to the first player, but not the second
+3.  The first player sends a message $\delta$
+4.  The second player chooses an action
+5.  The payoffs are realised, with the utilities being dependent exclusively on $\omega$
 
 ## Scenario: house committees in budget negotiations
+
 The floor $F$ of a parliament must decide on a defence budget. There is an objective required level $\omega$ of spending, unknown to $F$. The defence committee $C$ knows the required spending and gives advice $\delta$ to $F$. Their incentives are partiallyaligned: whatever the required spend, the committee wants to spend just a little more. This is represented *in* $C$*'s utility function* as a bias $C > 0$.
 
 Can there be any informative communication strategy? For that, we need to look for pure-strategy equilibria with informative messages; suppose $C$ adopting a policy of honesty such that $$\forall \omega, \delta = \omega$$
@@ -641,6 +659,7 @@ Can there be any informative communication strategy? For that, we need to look f
 F's posterior belief is that the true state of the world is $\omega$, i.e., $$f_{X|\delta = \omega}(\omega) = \frac{f_{X}(\omega) f_{\delta|X=\omega}(\omega)}{f_\delta(\omega)} = 1$$
 
 ## Solving a cheap-talk game
+
 - Show that there is no separating equilibrium
 - Find a pooling equilibrium
   - Assume that player 1 always signals some message
@@ -660,14 +679,17 @@ you wouldn't have made this mistake had you been aware that their incentive to d
 think more conceptually
 
 ## PBE with restricted message spaces
+
 ...
 
 ## Strategic information transmission
+
 - When information transmission is costless, there is always a pooling (babbling) equilibria
 - There are informative equilibria if the message is vague enough that knowledge of the messenger's biases $c$ doesn't unravel the equilibrium (more likely when $c$ is small)
 - The amount of information that can be transmitted depends on how well-aligned the preferences are/how small $c$ is
 
 # Lecture 11
+
 Prove that if $X$ is finite and $R$ is a complete and reflexive binary relation on $X$, then $M (R,S) \neq \emptyset$ $\forall S \subset X, S \neq \emptyset$ iff $R$ is acyclic.
 
 \textsc{First, I prove} that $M (R,S) \neq \emptyset \rightarrow R$ is acyclic by contraposition, i.e., $$\neg(R \text{ is acyclic}) \rightarrow M (R,S) = \emptyset$$
@@ -678,7 +700,7 @@ I assume that $R$ is cyclic. This assumption is defined as $$x_i P x_{i + 1} \fo
 
 with $i \in \mathbb{N}$. By implication, given $P$ is transitive, $$x_i P x_{i + 1} \forall i < n \rightarrow x_1 P x_{i + 1}, i < (n - 1) \wedge x_1 \not{R} x_n \text{ } \therefore \text{ } x_1 \not{R} x' \forall x' \in S$$
 
-Now, could there be any other $x \neq x_1 \in S : x \in M (R, S)$? We are left with $\{x_2, x_3, ..., x_n\}$. Given $$x_i P x_{i + 1} \rightarrow x_{i + 1} \not{R} x_i \text{ } \therefore \text{ } x_{i + 1} \notin M(R,S)$$ 
+Now, could there be any other $x \neq x_1 \in S : x \in M (R, S)$? We are left with $\{x_2, x_3, ..., x_n\}$. Given $$x_i P x_{i + 1} \rightarrow x_{i + 1} \not{R} x_i \text{ } \therefore \text{ } x_{i + 1} \notin M(R,S)$$
 
 We see that $x_1 P x_2 \rightarrow x_2 \not{R} x_1$, $x_2 P x_3 \rightarrow x_3 \not{R} x_2$, etc. Therefore, no $x \neq x_1 \in S$ can be a member of the maximal set.
 
@@ -686,9 +708,10 @@ We see that $x_1 P x_2 \rightarrow x_2 \not{R} x_1$, $x_2 P x_3 \rightarrow x_3 
 
 I assume that $R$ is acyclic. This assumption is defined as $$x_i P x_{i + 1} \forall i < n \rightarrow x_1 R x_n$$
 
-By transitivity and completeness of $P$, $x_1 P x_2$, $x_1 P x_3$, and so on. 
+By transitivity and completeness of $P$, $x_1 P x_2$, $x_1 P x_3$, and so on.
 
 ## Previous soln
+
 \textsc{Second, I prove} that $R \text{ is acyclic} \rightarrow M (R,S) \neq \emptyset$ by contraposition, i.e., $$M (R,S) = \emptyset \rightarrow \neg(R \text{ is acyclic})$$
 
 This goal is defined as $$x_i P x_{i + 1} \forall i < n \rightarrow x_1 \not{R} x_n$$
@@ -698,10 +721,13 @@ I assume that $M (R,S) = \emptyset$. This assumption is defined as $$\not \exist
 Given $P$ inheres completeness and transitivity, $$\exists x_i : x_1 P x' \text{ } \forall x' \neq x_i \wedge x_1 \not{R} x_i \rightarrow \exists x_i : x_1 R x' \text{ } \forall x' \neq x_i \wedge x_1 \not{R} x_i$$ This can only be true if $x_1 \not{R} x_n$, which makes $R$ cyclic.
 
 # Lecture 14
+
 ## The motivating problem: collective action
-Collective action problems afflict low-excludability goods, resulting in the free-rider problem (public goods) or overconsumption (common-pool resources). 
+
+Collective action problems afflict low-excludability goods, resulting in the free-rider problem (public goods) or overconsumption (common-pool resources).
 
 ## The requisite concept: discounting
+
 **Discounting** is the formalisation of the preference for imminent consumption. In this case, it encompasses the higher subjective valuation of some fixed value of utility at a more proximate time period than at a more distant one. It has its origins in psychology, and at least within the field there is a great deal of nuance to the concept (e.g., variation in discounting rates over time and circumstances), but for parsimony we are only dealing with constant discounting factors here.
 
 Discounting is operationalised as a constant $\delta$ that can take any value between 0 and 1, (nominally) inclusive. This constant then gets multiplied by the utility $n$ times for every period standing between $t$ and $t + n$.
@@ -709,25 +735,24 @@ Discounting is operationalised as a constant $\delta$ that can take any value be
 Of particular interest is *proper discounting*, where $\delta \in (0, 1)$. A discount factor of 1 means that there is no discounting going on. A discount factor of 0 means that the future is entirely irrelevant to the player.
 
 ## The requisite maths
-We want to figure out the solution to $\delta^0 + \delta^1 + \delta^2 + ... + \delta^n$. We can just multiply it by $(1 - \delta)$ and then divide it back.
 
-$$
+We want to figure out the solution to $\delta^0 + \delta^1 + \delta^2 + ... + \delta^n$. We can just multiply it by $(1 - \delta)$ and then divide it back. $$
 \begin{array}{rll}
 \delta^0 + \delta^1 + \delta^2 + ... + \delta^n &= \frac{\delta^0 + \delta^1 + \delta^2 + ... + \delta^n(1 - \delta)}{1 - \delta}  \\
 &= \frac{\delta^0 + \cancel{\delta^1} + \cancel{\delta^2} + ... + \cancel{\delta^n} - \cancel{\delta^1} - \cancel{\delta^2} - ... - \cancel{\delta^n} - \delta^{n+1}}{1 - \delta} \\
-\sum_{t = 1}^n \delta^t &= \frac{1 - \delta^{n+1}}{1 - \delta} & \text{(xiv.i)}
+\sum_{t = 1}^n \delta^t &= \frac{1 - \delta^{n+1}}{1 - \delta} & \text{(xiv.i)} \\
+\delta^0 + \delta^2 + ... + \delta^{2k} &= \frac{\delta^0 + \cancel{\delta^2} + \cancel{\delta^4} + ... + \cancel{\delta^{2k}} - \cancel{\delta^2} - \cancel{\delta^4} - ... - \cancel{\delta^{2k}} - \delta^{2(k+1)}}{1 - \delta^2} \\
+&= \frac{\delta^0 - \delta^{2(k+1)}}{1 - \delta^2} & \text{(xiv.ia)} \\
+\delta^1 + \delta^3 + ... + \delta^{2k+1} &= \frac{\delta^1 + \cancel{\delta^3} + \cancel{\delta^5} + ... + \cancel{\delta^{2k+1}} - \cancel{\delta^3} - \cancel{\delta^5} - ... - \cancel{\delta^{2k+1}} - \delta^{2(k+1)+1}}{1 - \delta^2} \\
+&= \frac{\delta - \delta^{2(k+1)+1}}{1 - \delta^2} \\
+&= \delta \frac{1 - \delta^{2(k+1)}}{1 - \delta^2} & \text{(xiv.ib)} \\
 \end{array}
-$$
-
-In an infinitely repeated game and given a proper discounting factor $\delta \in (0,1)$, 
-
-$$
+$$ In an infinitely repeated game and given a proper discounting factor $\delta \in (0,1)$, $$
 \begin{array}{rll}
 \lim_{n \rightarrow \infty} \delta^{n + 1} &= 0 \\
 \lim_{n \rightarrow \infty} \frac{1 - \delta^{n+1}}{1 - \delta} &= \frac{1}{1 - \delta} & (\text{xiv.ii})
 \end{array}
-$$
-If a player gets $u$ at each $t_i \in T$ and $T = \infty$, the present value $v$ of the total payoff is given as
+$$ If a player gets $u$ at each $t_i \in T$ and $T = \infty$, the present value $v$ of the total payoff is given as
 
 $$
 \begin{array}{rll}
@@ -735,8 +760,7 @@ v &= u + \delta u + ... + \delta^n u \\
 &= u (\frac{1}{1 - \delta}) \\
 &= \frac{u}{1 - \delta} & (\text{xiv.iii})
 \end{array}
-$$
-For future instances of one-shot deviation e.g., at the present $t$, it is also helpful to break this expression apart and take out e.g., the first $u$, giving us
+$$ For future instances of one-shot deviation e.g., at the present $t$, it is also helpful to break this expression apart and take out e.g., the first $u$, giving us
 
 $$
 \begin{array}{rll}
@@ -749,12 +773,15 @@ $$
 $$
 
 ## Definition
+
 $S^{t-1}$ is the space of strategy profiles in the previous round.
 
 Note: Strategy spaces and strategy profile spaces are denoted with a capital S, with its members being strategies and strategy profiles respectively.
 
 ### Stage game of choice
+
 We choose the prisoner's dilemma as our stage game of choice.
+
 \begin{center}
 \begin{tabular}{cccc}
 & & \multicolumn{2}{c}{Player 2} \\
@@ -766,28 +793,30 @@ We choose the prisoner's dilemma as our stage game of choice.
 \cline{3-4}
 \end{tabular}
 \end{center}
+
 where \textit{t(emptation)} $>$ \textit{r(eward)} $>$ \textit{p(unishment)} $>$ \textit{s(ucker)}.
 
 ## Strategies
-### Grim Trigger (GT)
-The *grim trigger* strategy is one of cooperation until anyone^[In a different version, 'an opponent'; this has implications for the equilibria] defects.
 
-Say that we are on the cooperation path, with the strategy profile $CC$ being played throughout. This gives us the repeated strategy profile $(CC, CC, CC, ...)$. Here, the total payoff is 
+### Grim Trigger (GT)
+
+The *grim trigger* strategy is one of cooperation until anyone[^1] defects.
+
+[^1]: In a different version, 'an opponent'; this has implications for the equilibria
+
+Say that we are on the cooperation path, with the strategy profile $CC$ being played throughout. This gives us the repeated strategy profile $(CC, CC, CC, ...)$. Here, the total payoff is
 
 $$
 \begin{array}{rrll}
 & v_0 &= r + r \delta + r \delta^2 \\
 \text{from (xiv.iii)} & &= \frac{r}{1 - \delta} & (14.1)
 \end{array}
-$$
-Now consider a one-shot deviation (e.g., in the first period, say, by player 1). This gives us the repeated strategy profile $(DC, DD, DD)$. The total payoff for player 1 is now 
-$$
+$$ Now consider a one-shot deviation (e.g., in the first period, say, by player 1). This gives us the repeated strategy profile $(DC, DD, DD)$. The total payoff for player 1 is now $$
 \begin{array}{rrll}
 & v_1 &= t + p \delta + p \delta^2 + ... & \\
 \text{from (xiv.iv)} & &= t + \frac{p \delta}{1 - \delta} & (14.2) \\
 \end{array}
-$$
-Whether the one-shot deviation payoff is larger than the grim trigger cooperation payoff depends on the relative sizes of $t$, $r$, and $p$. We now want to find scenarios for which there is no incentive to deviate (i.e., the conditions where the Grim Trigger path yields a higher $v$ than that of the one-shot deviation).
+$$ Whether the one-shot deviation payoff is larger than the grim trigger cooperation payoff depends on the relative sizes of $t$, $r$, and $p$. We now want to find scenarios for which there is no incentive to deviate (i.e., the conditions where the Grim Trigger path yields a higher $v$ than that of the one-shot deviation).
 
 From (14.1) and (14.2), (GT, GT) is an equilibrium iff
 
@@ -799,65 +828,99 @@ $$
 & r &\geq t - \delta(t - p) & \\
 & r - t &\geq \delta(t - p) \\
 & \delta(t - p) &\geq t - r & \\
-& \delta &\geq \frac{t - r}{t - p} &
+& \delta &\geq \frac{t - r}{t - p} & (14.2a)
 \end{array}
-$$
-Under these conditions (passing the one-shot deviation test), GT is an SPE. Furthermore, the implications of this equation are that for the SPE-ness to hold,
+$$ Under these conditions (passing the one-shot deviation test), GT is an SPE. Furthermore, the implications of this equation are that for the SPE-ness to hold,
 
 - The discount factor $\delta$ must be large, i.e., the players must be patient enough
-- The reward $r$ should be large; given $t > r$, the numerator 'shrinks' s.t.
-$$
-\lim_{r \rightarrow t} \frac{t - r}{t - p} = \frac{0}{t - p} = 0
-$$
-and the value of the threshold $\frac{t - r}{t - p}$ is smaller (easier for $\delta$ to clear)
-- The punishment should be 'large' s.t. $p$ is small; given $t > p$, the denominator 'grows' s.t.
-$$
-\lim_{p \rightarrow -\infty} \frac{t - r}{t - p} = \frac{t-r}{t + \infty} = 0
-$$
-and the value of the threshold $\frac{t - r}{t - p}$ is smaller (easier for $\delta$ to clear)
+- The reward $r$ should be large; given $t > r$, the numerator 'shrinks' s.t. $$
+  \lim_{r \rightarrow t} \frac{t - r}{t - p} = \frac{0}{t - p} = 0
+  $$ and the value of the threshold $\frac{t - r}{t - p}$ is smaller (easier for $\delta$ to clear)
+- The punishment should be 'large' s.t. $p$ is small; given $t > p$, the denominator 'grows' s.t. $$
+  \lim_{p \rightarrow -\infty} \frac{t - r}{t - p} = \frac{t-r}{t + \infty} = 0
+  $$ and the value of the threshold $\frac{t - r}{t - p}$ is smaller (easier for $\delta$ to clear)
 
 **Note**: Why is checking one-shot enough? Consider the following two-shot scenarios:
 
-- $(DC, CD, DD, DD)$, focusing on player 1
-$$
-\begin{array}{rrll}
-& v_{2a} &= t + s \delta + p \delta^2 + p \delta^3 + ... & \\
-& s &< p & \\
-& t + s \delta + p \delta^2 + p \delta^3 + ... &< t + p \delta + p \delta^2 + p \delta^3 + ...\\
-\text{from (14.2)} & v_{2a} &< v_1 & 
-\end{array}
-$$
-- $(DC, DD, CD, DD)$, focusing on player 1
-$$
-\begin{array}{rrll}
-& v_{2b} &= t + p \delta + s \delta^2 + p \delta^3 + ... & \\
-& s &< p & \\
-& t + p \delta + s \delta^2 + p \delta^3 + ... &< t + p \delta + p \delta^2 + p \delta^3 + ...\\
-\text{from (14.2)} & v_{2b} &< v_1 & 
-\end{array}
-$$
-For an equilibrium to hold, $v_1 < v_0$. As $v_{2a} < v_1$ and $v_{2b} < v_1$, by transitivity they are also smaller than $v_0$.
+- $(DC, CD, DD, DD)$, focusing on player 1 $$
+  \begin{array}{rrll}
+  & v_{2a} &= t + s \delta + p \delta^2 + p \delta^3 + ... & \\
+  & s &< p & \\
+  & t + s \delta + p \delta^2 + p \delta^3 + ... &< t + p \delta + p \delta^2 + p \delta^3 + ...\\
+  \text{from (14.2)} & v_{2a} &< v_1 & 
+  \end{array}
+  $$
+- $(DC, DD, CD, DD)$, focusing on player 1 $$
+  \begin{array}{rrll}
+  & v_{2b} &= t + p \delta + s \delta^2 + p \delta^3 + ... & \\
+  & s &< p & \\
+  & t + p \delta + s \delta^2 + p \delta^3 + ... &< t + p \delta + p \delta^2 + p \delta^3 + ...\\
+  \text{from (14.2)} & v_{2b} &< v_1 & 
+  \end{array}
+  $$ For an equilibrium to hold, $v_1 < v_0$. As $v_{2a} < v_1$ and $v_{2b} < v_1$, by transitivity they are also smaller than $v_0$.
 
-To check for subgame perfection, consider a defection history. For example, assume again that player 1 defects at $t = 1$. Player 2's total payoff from sticking with GT is $$v = s + p \delta + p \delta^2 + ...$$
-Their total payoff from deviating is $$v = s + s \delta + p \delta^2 + ...$$
-Once again,
-$$
+### Testing for subgame perfection
+
+To check for subgame perfection, consider a defection history. For example, assume again that player 1 defects at $t = 1$. Player 2's total payoff from sticking with GT is $$v = s + p \delta + p \delta^2 + ...$$ Their total payoff from deviating is $$v = s + s \delta + p \delta^2 + ...$$ Once again, $$
 \begin{array}{rl}
 s &< p \\
 s + s \delta + p \delta^2 + ... &< s + p \delta + p \delta^2 + ...
 \end{array}
-$$
-and player 2 has no incentive to deviate either.
+$$ and player 2 has no incentive to deviate either.
 
 ### Tit-for-tat (TFT) strategy
+
 The *tit-for-tat strategy* is a strategy where players start with cooperation and mimic the other players' behaviour going forward.
 
+To illustrate this strategy, we once again assume cooperation as our starting point s.t. $$
+\begin{array}{rll}
+v &= \frac{r}{1 - \delta} & \text{ (14.3)}
+\end{array}
+$$ Let's say that player 1 deviates by playing $D$ at period $t$ given player 2 plays $C$ at period $t - 1$: $$\underbrace{CC}_{t - 1}, \underbrace{DC}_{t}, \underbrace{CD}_{t + 1}, \underbrace{DC}_{t + 2}, ...$$ At $t$ and given the payoff stream at hand, we get player 1's present value $$
+\begin{array}{rrll}
+& v &= \delta^0t + \delta^1s + \delta^2t + \delta^3s \\
+& &= t(\delta^0 + \delta^2 + ...) + s(\delta^1 + \delta^3 + ...) \\
+\text{from (xiv.1a) and (xiv.ib)} & &= t(\frac{\delta^0 - \delta^{2(k+1)}}{1 - \delta^2}) + \delta s(\frac{\delta^0 - \delta^{2(k+1)}}{1 - \delta^2}) \\
+\text{from (xiv.ii)} & \lim_{k \rightarrow \infty} v &= t(\frac{1}{1 - \delta^2}) + \delta s(\frac{1}{1 - \delta^2}) \\
+& &= \frac{t + \delta s}{1 - \delta^2} & (14.4)
+\end{array}
+$$ When player 1 deviates twice (at $t$ and $t + 1$), we get $$\underbrace{CC}_{t - 1}, \underbrace{DC}_{t}, \underbrace{DD}_{t + 1}, \underbrace{DD}_{t + 2}, ...$$ such that the present value of their payoffs is now $$
+\begin{array}{rll}
+v &= t + \delta p + \delta^2 p + ... \\
+&= t + \delta \frac{p}{1 - \delta} & (14.5) \\
+\end{array}
+$$ This means that the equilibrium needs to satisfy two conditions now, from (14.3), (14.4), and (14.5):
+$$
+\begin{array}{rl}
+\frac{r}{1 - \delta} &\geq \max(\frac{t + \delta s}{1 - \delta^2},t + \delta \frac{p}{1 - \delta})
+\end{array}
+$$
+For $\frac{r}{1 - \delta}$ to be larger than $\frac{t + \delta s}{1 - \delta^2}$, it must be the case that
+$$
+\begin{array}{rrll}
+& \frac{r}{1 - \delta} &\geq \frac{t + \delta s}{1 - \delta^2} \\
+& r(1 - \delta) &\geq t + \delta s \\
+& - (t - r) &\geq -\delta(r - s) \\
+& \delta &\geq \frac{t - r}{r - s} \\
+\\
+\text{from (14.2a)} & \delta &\geq \max(\frac{t - r}{r - s},\frac{t - r}{t - p}) & (14.6)
+\end{array}
+$$
+
+### Testing for subgame perfection
+
+Consider a defection history where at $t - 1$, $CD$ is played. Playing the TFT strategy should give us $DC$ at $t$.
+
+To establish SPE, we need to rule out any one-shot incentive to deviate (i.e., player 1 playing $C$ att $t$ and the stage strategy profile being $CC$). Deviation would result in the perpetuation of $CC$ ad infinitum, such that we get the present value at (14.3). This means that $\frac{r}{1 - \delta} \leq \frac{t + \delta s}{1 - \delta^2}$.
+
+This implies that the NE is only an SPE if $\frac{r}{1 - \delta} = \frac{t + \delta s}{1 - \delta^2}$, which is a knife-edge condition. Therefore, the $(TFT,TFT)$ NE is overwhelmingly *not* an SPE.
 
 $$
 \begin{array}{rl}
 \end{array}
 $$
-$$
-\begin{array}{rl}
-\end{array}
-$$
+
+## Folk theorem
+Let $\Gamma$ be a normal-form game, and let $(v_1^∗ , ..., v_n^∗)$ denote the payoffs from a Nash equilibrium of $\Gamma$. Let $(v_1, ..., v_n)$ be a feasible payoff vector. If $v_i > v_i^∗$, there is a sufficiently large $\delta$ and a strategy profile $s$ so that $s$ is a subgame perfect equilbrium of the infinitely repeated game that has an average payoff arbitrarily close to $(v_1, ..., v_n)$.
+
+For instance, if in a PD the strategy profile $(D, C)$ yields a utility of 4 for player 1, their average payoff in the repeated game when the strategy profile is $(DDD..., CCC...)$ is also 4.
